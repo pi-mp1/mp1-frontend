@@ -1,0 +1,50 @@
+/* Layout general */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* pantalla completa */
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+  background: #2563eb; /* azul */
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+header nav a {
+  color: white;
+  margin-left: 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+header nav a:hover {
+  color: #cbd5e1; /* gris claro al pasar */
+}
+
+/* Contenido */
+main {
+  flex: 1; /* ocupa todo el espacio disponible */
+  padding: 1.5rem;
+  background: #f9fafb; /* gris muy claro */
+}
+
+/* Footer */
+footer {
+  background: #e5e7eb; /* gris claro */
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #374151;
+}
