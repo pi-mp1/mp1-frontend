@@ -1,6 +1,8 @@
+import { TaskCard } from "../components/taskCard";
+import { renderTaskList } from "../components/taskList";
 import { renderLayout } from "../layouts/main";
 
-const app = document.getElementById('app');
+const app = document.getElementById("app");
 
 /**
  * Build a safe URL for fetching view fragments inside Vite (dev and build).
@@ -33,7 +35,6 @@ export const routes = {
   },
 };
 
-
 export async function loadView(name) {
   const route = routes[name];
   const app = document.getElementById("app");
@@ -63,15 +64,36 @@ export async function loadView(name) {
   }
 }
 
-
 function initHome() {
   console.log("Home view initialized");
   // Aquí puedes agregar lógica específica para la vista de inicio
 }
 
 function initBoard() {
-  console.log("Board view initialized");
-  // Aquí puedes agregar lógica específica para la vista del tablero
+  const tasks = [
+    {
+      id: 1,
+      title: "Configurar proyecto",
+      detail: "Crear estructura con Vite y rutas.",
+      status: "todo",
+      dateTime: Date.now(),
+    },
+    {
+      id: 2,
+      title: "Diseñar base de datos",
+      detail: "Definir tablas y relaciones.",
+      status: "in-progress",
+      dateTime: Date.now(),
+    },
+    {
+      id: 3,
+      title: "Configurar router",
+      detail: "Crear manejador de rutas hash.",
+      status: "done",
+      dateTime: Date.now(),
+    },
+  ];
+  renderTaskList(tasks);
 }
 
 /**
@@ -79,8 +101,7 @@ function initBoard() {
  * Attaches an event listener for URL changes and triggers the first render.
  */
 export function initRouter() {
-    
-  window.addEventListener('hashchange', handleRoute);
+  window.addEventListener("hashchange", handleRoute);
   handleRoute(); // first render
 }
 
@@ -89,13 +110,13 @@ export function initRouter() {
  * Fallback to 'home' if the route is unknown.
  */
 function handleRoute() {
-  const path = (location.hash.startsWith('#/') ? location.hash.slice(2) : '') || 'login';
-   console.log(`Routing to: ${path}`);
-   
-  const route = routes[path] ? path : 'login';
+  const path =
+    (location.hash.startsWith("#/") ? location.hash.slice(2) : "") || "login";
+  console.log(`Routing to: ${path}`);
 
+  const route = routes[path] ? path : "login";
 
-  loadView(route).catch(err => {
+  loadView(route).catch((err) => {
     console.error(err);
     app.innerHTML = `<p style="color:#ffb4b4">Error loading the view.</p>`;
   });
