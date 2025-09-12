@@ -1,4 +1,5 @@
-const API = "http://localhost:3000/api"; // ajusta según tu backend
+const API = import.meta.env.VITE_API_URL;
+ // ajusta según tu backend
 
 export async function registerUser(user) {
   const res = await fetch(`${API}/signup`, {
