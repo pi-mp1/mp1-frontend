@@ -1,3 +1,19 @@
+/**
+ * A collection of reusable SVG icons for the application.
+ *
+ * Each property is a string containing inline SVG markup,
+ * which can be directly inserted into the DOM (e.g., via innerHTML).
+ *
+ * @namespace Icons
+ * @property {string} edit - Pencil/edit icon SVG.
+ * @property {string} delete - Trash/delete icon SVG.
+ *
+ * @example
+ * // Insert edit icon into a button
+ * const button = document.createElement("button");
+ * button.innerHTML = Icons.edit;
+ * document.body.appendChild(button);
+ */
 export const Icons = {
   edit: `
     <svg xmlns="http://www.w3.org/2000/svg" 

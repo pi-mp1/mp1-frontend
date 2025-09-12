@@ -1,11 +1,58 @@
 import { TaskCard } from "./taskCard.js";
 
 /**
- * Render list of tasks
- * @param {Array} tasks - lista de tareas
+ * @typedef {Object} Task
+ * @property {string} id - Unique identifier for the task.
+ * @property {string} title - Task title.
+ * @property {string} [detail] - Optional description of the task.
+ * @property {"todo"|"in-progress"|"done"} status - Current task status.
+ * @property {string} dueDate - Due date as a parsable string (ISO or Date-compatible).
+ */
+
+/**
+ * Render a list of tasks into their respective columns (todo, in-progress, done).
+ *
+ * This function:
+ *  - Initializes the task creation modal and handles form submission.
+ *  - Clears and re-renders the columns each time tasks are updated.
+ *  - Creates draggable task cards using {@link TaskCard}.
+ *  - Implements drag-and-drop functionality to update task status across columns.
+ *
+ * @function
+ * @param {Task[]} tasks - Array of task objects to be rendered.
+ * @returns {void} Updates the DOM directly.
+ *
+ * @example
+ * const tasks = [
+ *   { id: "1", title: "Setup project", status: "todo", dueDate: "2025-09-20" },
+ *   { id: "2", title: "Write docs", detail: "Use JSDoc", status: "in-progress", dueDate: "2025-09-21" }
+ * ];
+ *
+ * renderTaskList(tasks);
  */
 
 export function renderTaskList(tasks) {
+  const taskModal = document.getElementById("taskModal");
+  const taskForm = document.getElementById("taskForm");
+
+  taskForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById("taskTitle").value;
+    const detail = document.getElementById("taskDetail").value;
+    const status = document.getElementById("taskStatus").value;
+
+    // Create a new task
+    const task = document.createElement("div");
+    task.className = "task";
+    task.textContent = title;
+
+    document.getElementById(status).appendChild(task);
+
+    // Reset and close modal
+    taskForm.reset();
+    taskModal.classList.add("hidden");
+  });
 
   const columns = {
     todo: document.getElementById("todo"),
@@ -13,24 +60,24 @@ export function renderTaskList(tasks) {
     done: document.getElementById("done"),
   };
 
-  // 🔄 Renderizar cards
+  // Render task cards
   function render() {
-    Object.values(columns).forEach((col) => (col.innerHTML = "")); // limpiar
-
+    Object.values(columns).forEach((col) => (col.innerHTML = "")); // clear all columns
+    
     tasks.forEach((task) => {
       const card = TaskCard(task);
       columns[task.status].appendChild(card);
 
-      // 👇 volver a añadir eventos al card nuevo
+      // Reattach drag event
       card.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text/plain", task.id);
       });
     });
   }
 
-  // ⚡ Eventos en columnas
+  // Enable drag & drop across columns
   Object.entries(columns).forEach(([status, col]) => {
-    const parent = col.parentElement; // 👈 columna entera
+    const parent = col.parentElement; // column wrapper
 
     parent.addEventListener("dragover", (e) => {
       e.preventDefault();

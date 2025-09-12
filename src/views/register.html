@@ -1,23 +1,37 @@
 <section>
-    <h2>Regístrate</h2>
+  <h2>Regístrate</h2>
 
-    <form>
-        <div class="input-group flex">
-            <input type="text" placeholder="Nombre">
-            <input type="text" placeholder="Apellidos">
-        </div>
-        <div class="input-group">
-            <input type="number" placeholder="Edad">
-        </div>
-        <div class="input-group">
-            <input type="email" placeholder="Correo electrónico">
-        </div>
-        <div class="input-group flex">
-            <input type="password" placeholder="Contraseña">
-            <input type="password" placeholder="Confirmar contraseña">
-        </div>
-        <button class="btn">Registrarme</button>
-    </form>
+  <form id="registerForm">
+    <div class="input-group flex">
+      <input type="text" id="nombres" placeholder="Nombre" required minlength="2">
+      <input type="text" id="apellidos" placeholder="Apellidos" required minlength="2">
+    </div>
 
-    <p class="link-text">¿Ya tienes cuenta? <a href="#">Inicia sesión</a></p>
+    <div class="input-group">
+      <input type="number" id="edad" placeholder="Edad" required min="13">
+    </div>
+
+    <div class="input-group">
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+    </div>
+
+    <div class="input-group flex">
+      <input type="password" id="password" placeholder="Contraseña" required minlength="8">
+      <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+    </div>
+    
+    <p id="msg" style="color:red; margin-top:10px; display: flex; justify-content: center;"></p>
+
+    <button type="submit" class="btn">Registrarme</button>
+  </form>
+
+  <p class="link-text">¿Ya tienes cuenta? <a href="#">Inicia sesión</a></p>
 </section>
+
+<!-- Modal -->
+<div id="successModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h3>✅ Usuario creado correctamente</h3>
+    <p>Ahora puedes iniciar sesión con tu cuenta.</p>
+  </div>
+</div>

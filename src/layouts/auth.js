@@ -1,7 +1,27 @@
 /**
- * Renderiza el layout de autenticación (pantalla dividida: formulario a la izquierda, imagen a la derecha)
- * @param {string} innerHtml - Contenido HTML que se colocará en la parte izquierda (login, registro, etc.)
+ * Render the authentication layout (split screen: form on the left, image on the right).
+ *
+ * This layout:
+ *  - Displays a logo and an authentication form (login, register, etc.) on the left.
+ *  - Displays an illustration/image on the right.
+ *
+ * @function
+ * @param {string} innerHtml - The HTML content to be placed inside the left section (e.g., login or register form).
+ * @returns {string} The complete HTML string for the authentication layout.
+ *
+ * @example
+ * // Render login form inside the layout
+ * const html = renderAuthLayout(`
+ *   <form id="loginForm">
+ *     <input type="email" id="email" placeholder="Email" required />
+ *     <input type="password" id="password" placeholder="Password" required />
+ *     <button type="submit">Login</button>
+ *   </form>
+ * `);
+ *
+ * document.body.innerHTML = html;
  */
+
 export function renderAuthLayout(innerHtml) {
   return `
     <section class="auth-container">
