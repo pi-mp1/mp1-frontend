@@ -1,5 +1,7 @@
 import { renderLayout, renderAuthLayout } from "../layouts";
 import { renderTaskList } from "../components/taskList";
+import { renderRegister } from "../components/register";
+import { renderLogin } from "../components/login";
 
 const app = document.getElementById("app");
 
@@ -24,12 +26,12 @@ export const routes = {
   },
   "login": {
     file: "login.html",
-    init: null,
+    init: renderLogin,
     layout: renderAuthLayout,
   },
   "register": {
     file: "register.html",
-    init: null,
+    init: renderRegister,
     layout: renderAuthLayout,
   },
   "reset-password": {
@@ -40,7 +42,7 @@ export const routes = {
   taskNew: {
     file: "taskNew.html",
     init: null,
-    layout: true,
+    layout: renderLayout,
   },
 };
 
