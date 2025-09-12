@@ -1,7 +1,7 @@
 import { getTasks } from "./api/tasks.js";
 import { renderTaskList } from "./components/taskList.js";
 import { initRouter } from "./routes/routes.js";
-import './styles/layout.css';
+import './styles/index.css';
 
 async function init() {
   try {

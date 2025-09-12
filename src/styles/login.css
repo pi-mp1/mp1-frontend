@@ -1,0 +1,101 @@
+section.login-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 900px;
+  height: 550px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 40px auto;
+}
+
+section.login-card {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+div.logo img {
+  height: 40px;
+  border-radius: 8px;
+}
+
+div.logo h1 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4cafef;
+}
+
+.input-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #4cafef;
+  box-shadow: 0 0 4px rgba(76, 175, 239, 0.5);
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #000;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: #333;
+}
+
+.register-text {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.register-text a {
+  color: #4cafef;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+.image-box {
+  background: #f0f0f0;
+  border-left: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
