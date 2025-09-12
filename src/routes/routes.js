@@ -27,12 +27,12 @@ export const routes = {
     init: initBoard,
     layout: renderLayout,
   },
-  login: {
+  "login": {
     file: "login.html",
     init: renderLogin,
     layout: renderAuthLayout,
   },
-  register: {
+  "register": {
     file: "register.html",
     init: renderRegister,
     layout: renderAuthLayout,
