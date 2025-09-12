@@ -37,7 +37,6 @@ header nav a:hover {
 main {
   flex: 1; /* ocupa todo el espacio disponible */
   padding: 1.5rem;
-  background: #f9fafb; /* gris muy claro */
 }
 
 /* Footer */
