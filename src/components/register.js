@@ -1,4 +1,41 @@
 import { registerUser } from "../api/users";
+import { showToast } from "../utils/toasts";
+
+/**
+ * Renders and manages the user registration form.
+ *
+ * This function:
+ *  - Attaches a submit event listener to the form with id registerForm.
+ *  - Validates user inputs:
+ *    - Checks that the password matches the confirmation field.
+ *    - Ensures the password includes at least one lowercase letter,
+ *      one uppercase letter, one special character, and is at least 8 characters long.
+ *  - Calls registerUser to send the user data to the backend.
+ *  - Displays success or error messages using showToast or the #msg element.
+ *  - Redirects to the login page (#/login) if registration succeeds.
+ *
+ * @function
+ * @async
+ * @returns {void} Does not return a value. Updates the DOM and may redirect the user.
+ *
+ * @throws {Error} Displays an error message in the UI if registration fails.
+ *
+ * @example
+ * // HTML:
+ * <form id="registerForm">
+ *   <input id="nombres" type="text" required />
+ *   <input id="apellidos" type="text" required />
+ *   <input id="edad" type="number" required />
+ *   <input id="email" type="email" required />
+ *   <input id="password" type="password" required />
+ *   <input id="confirmPassword" type="password" required />
+ *   <button type="submit">Register</button>
+ * </form>
+ * <p id="msg"></p>
+ *
+ * // JS:
+ * renderRegister();
+ */
 
 export function renderRegister() {
   document
@@ -12,17 +49,16 @@ export function renderRegister() {
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirmPassword").value;
       const msg = document.getElementById("msg");
-      // 🔹 Validaciones extra
+      // Validations
       if (password !== confirmPassword) {
-        msg.textContent = "Las contraseñas no coinciden";
+        showToast("Las contraseñas no coinciden", "error");
         return;
       }
 
       const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
       if (!regexPassword.test(password)) {
-        msg.textContent =
-          "La contraseña debe tener minúscula, mayúscula y caracter especial";
-        return;
+        showToast("La contraseña debe tener minúscula mayúscula y caracter especial", "error");
+        return
       }
 
       try {
@@ -35,18 +71,9 @@ export function renderRegister() {
         };
         await registerUser(newUser);
 
-        // ✅ Mostrar modal
-        const modal = document.getElementById("successModal");
-        modal.style.display = "flex";
 
-
-        // Redirigir automáticamente en 3s si no hace clic
-        setTimeout(() => {
-          if (modal.style.display === "flex") {
-            modal.style.display = "none";
-            window.location.href = "#/login";
-          }
-        }, 1500);
+        showToast("Usuario creado exitosamente", "success");
+        window.location.href = "#/login";
 
       } catch (err) {
         msg.style.color = "red";

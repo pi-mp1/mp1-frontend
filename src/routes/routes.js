@@ -9,12 +9,31 @@ import { getTasks } from "../api/tasks.js";
 const app = document.getElementById("app");
 
 /**
+ * @typedef {Object} Route
+ * @property {string} file - The HTML file to load for this route.
+ * @property {Function|null} init - Initialization function for the view (optional).
+ * @property {Function} layout - Layout renderer function (wraps the view HTML).
+ */
+
+/**
  * Build a safe URL for fetching view fragments inside Vite (dev and build).
+ *
  * @param {string} name - The name of the view (without extension).
  * @returns {URL} The resolved URL for the view HTML file.
+ *
+ * @example
+ * const url = viewURL("login");
+ * // => URL object pointing to ../views/login.html
  */
 
 const viewURL = (name) => new URL(`../views/${name}.html`, import.meta.url);
+
+/**
+ * Map of available application routes.
+ * Each route defines which HTML file to load, which layout to use, and an optional initializer.
+ *
+ * @type {Object.<string, Route>}
+ */
 
 export const routes = {
   home: {
@@ -49,20 +68,30 @@ export const routes = {
   },
 };
 
+/**
+ * Open the "new task" modal.
+ *
+ * This function:
+ *  - Fetches the HTML fragment for the new task form.
+ *  - Renders it inside a modal via {@link openModal}.
+ *  - Sets up cancel and submit handlers.
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
+
 async function openTaskNewModal() {
   console.log("=== openTaskNewModal ejecutándose ===");
   // 1) Traer el HTML del formulario existente
   const res = await fetch(new URL(`../views/taskNew.html`, import.meta.url));
   const html = await res.text();
 
-  // 2) Abrir modal con ese HTML
   openModal(html);
 
-  // 3) Inicializaciones mínimas con tu módulo actual
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("date")?.setAttribute("min", today);
 
-  // Botón cancelar: cierra el modal sin navegar
+  // Cancel button handler
   const cancelBtn = document.getElementById("cancel-btn");
   console.log("Botón cancelar encontrado:", cancelBtn);
 
@@ -95,8 +124,6 @@ async function openTaskNewModal() {
       showToast("Tarea creada exitosamente", "success");
       initBoard();
       closeModal();
-      // Si necesitas refrescar la lista, vuelve a cargar la ruta o re-renderiza
-      // location.hash = "#/taskList";
     } catch {
       showToast("Error al crear la tarea", "error");
     }
@@ -108,6 +135,15 @@ async function openTaskNewModal() {
   });
 }
 
+/**
+ * Load a given view into the #app container.
+ *
+ * @async
+ * @param {string} name - Route name (must exist in {@link routes}).
+ * @returns {Promise<void>}
+ * @throws {Error} If the route or view file cannot be found.
+ */
+
 export async function loadView(name) {
   const route = routes[name];
   const app = document.getElementById("app");
@@ -117,15 +153,16 @@ export async function loadView(name) {
   }
 
   try {
-    // 1. Cargar HTML de la vista
+    // view HTML
     const res = await fetch(viewURL(name));
     if (!res.ok) throw new Error(`Failed to load view: ${name}`);
     const html = await res.text();
 
-    // 2. Renderizar con o sin layout
+    // Render with layout
     app.innerHTML = route.layout ? route.layout(html) : html;
+    
 
-    // 3. Ejecutar inicializador (si existe)
+    // Run initializer
     if (typeof route.init === "function") {
       route.init();
     }
@@ -137,9 +174,14 @@ export async function loadView(name) {
   }
 }
 
+/**
+ * Initialize the home view.
+ * (Currently placeholder logic.)
+ */
+
 function initHome() {
   console.log("Home view initialized");
-  // Aquí puedes agregar lógica específica para la vista de inicio
+  // lógica específica para la vista de inicio
 }
 
 export async function initBoard() {
@@ -148,7 +190,7 @@ export async function initBoard() {
   renderTaskList(tasks);
   console.log("Board view initialized");
 
-  // Botón dentro de la vista de lista
+  // Button inside the task list view
   const btn = document.getElementById("btn-new-task");
   if (btn)
     btn.addEventListener("click", (e) => {
@@ -156,7 +198,7 @@ export async function initBoard() {
       openTaskNewModal();
     });
 
-  // Enlace del header "+ Nueva Tarea"
+  // Header link "+ New Task"
   const headerBtn = document.querySelector("a.btn-new-task");
   if (headerBtn)
     headerBtn.addEventListener("click", (e) => {
@@ -167,7 +209,9 @@ export async function initBoard() {
 
 /**
  * Initialize the hash-based router.
- * Attaches an event listener for URL changes and triggers the first render.
+ * Attaches a hashchange listener and performs the first render.
+ *
+ * @function
  */
 export function initRouter() {
   window.addEventListener("hashchange", handleRoute);
@@ -175,14 +219,32 @@ export function initRouter() {
 }
 
 /**
- * Handle the current route based on the location hash.
- * Fallback to 'home' if the route is unknown.
+ * Handle the current route based on location.hash.
+ * Enforces authentication rules (redirects based on token presence).
+ *
+ * @private
  */
 function handleRoute() {
+  const token = localStorage.getItem("token"); // token
+
   const path =
     (location.hash.startsWith("#/") ? location.hash.slice(2) : "") || "login";
   console.log(`Routing to: ${path}`);
 
+  // If no token and path requires auth, redirect to login
+  if (!token && path !== "login" && path !== "register" && path !== "reset-password") {
+    location.hash = "#/login";
+    return;
+  }
+
+  // If token exists and path is login/register/reset, redirect home
+  if (token && (path === "login" || path === "register" || path === "reset-password")) {
+    location.hash = "#/home";
+    
+    return;
+  }
+
+  // Use valid route or fallback to login
   const route = routes[path] ? path : "login";
 
   loadView(route).catch((err) => {
@@ -190,6 +252,10 @@ function handleRoute() {
     app.innerHTML = `<p style="color:#ffb4b4">Error loading the view.</p>`;
   });
 }
+
+/**
+ * Initialize the "New Task" view directly (non-modal).
+ */
 function initTaskNew() {
   setupTaskForm();
 }

@@ -1,16 +1,34 @@
 const API = import.meta.env.VITE_API_URL;
 
 /**
- * Get all tasks
- * @returns {Promise<Array>}
+ * @typedef {Object} TaskData
+ * @property {string} title - The task title.
+ * @property {string} [detail] - Optional description of the task.
+ * @property {string} date - The due date in YYYY-MM-DD format.
+ * @property {string} time - The due time in HH:mm format.
+ * @property {"todo"|"in-progress"|"done"} status - The current task status.
+ * @property {Date|string} dueDate - The due date as a Date object or ISO string.
+ */
+
+/**
+ * Fetch all tasks from the API.
+ *
+ * @async
+ * @function
+ * @returns {Promise<TaskData[]>} A promise that resolves to an array of task objects.
+ * @throws {Error} If the request fails or the response is not OK.
+ *
+ * @example
+ * const tasks = await getTasks();
+ * console.log(tasks.length); // → number of tasks
  */
 export async function getTasks() {
-  const token = localStorage.getItem("token"); // o sessionStorage
+  const token = localStorage.getItem("token"); // or sessionStorage
   const res = await fetch(`${API}/tasks`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`, // 🔑 se envía el token aquí
+      "Authorization": `Bearer ${token}`, // send token here
     },
   });
   if (!res.ok) throw new Error("Error fetching tasks");
@@ -18,8 +36,23 @@ export async function getTasks() {
 }
 
 /**
- * Create new task
- * @param {Object} task
+ * Create a new task via the API.
+ *
+ * @async
+ * @function
+ * @param {TaskData} task - The task object to create.
+ * @returns {Promise<TaskData>} A promise that resolves to the created task object.
+ * @throws {Error} If the request fails or the response is not OK.
+ *
+ * @example
+ * const newTask = await createTask({
+ *   title: "Finish docs",
+ *   detail: "Write JSDoc for API",
+ *   date: "2025-09-12",
+ *   time: "14:00",
+ *   status: "todo",
+ *   dueDate: new Date("2025-09-12T14:00"),
+ * });
  */
 export async function createTask(task) {
   const token = localStorage.getItem("token");
@@ -27,7 +60,7 @@ export async function createTask(task) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`, // 🔑 igual aquí
+      "Authorization": `Bearer ${token}`, 
     },
     body: JSON.stringify(task),
   });
