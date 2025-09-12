@@ -17,6 +17,8 @@ export function renderLayout(innerHtml) {
         ${innerHtml} <!-- Aquí entra el HTML de la vista -->
       </main>
 
+      <div id="modal-root"></div>
+
       <footer>
         © 2025 - Todos los derechos reservados
       </footer>

@@ -1,4 +1,5 @@
 import { renderLayout } from "../layouts/main";
+import { openModal, closeModal } from "../components/modal";
 
 const app = document.getElementById("app");
 
@@ -38,6 +39,69 @@ export const routes = {
   },
 };
 
+
+async function openTaskNewModal() {
+  console.log("=== openTaskNewModal ejecutándose ===");
+  // 1) Traer el HTML del formulario existente
+  const res = await fetch(new URL(`../views/taskNew.html`, import.meta.url));
+  const html = await res.text();
+
+  // 2) Abrir modal con ese HTML
+  openModal(html);
+
+  // 3) Inicializaciones mínimas con tu módulo actual
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("date")?.setAttribute("min", today);
+
+  const { setupFormValidation, setupCharacterCounters } = await import("../components/taskNew.js");
+  setupFormValidation();
+  setupCharacterCounters();
+
+  // Botón cancelar: cierra el modal sin navegar
+const cancelBtn = document.getElementById("cancel-btn");
+console.log("Botón cancelar encontrado:", cancelBtn);
+
+if (cancelBtn) {
+  cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeModal();
+  });
+} else {
+  console.error("Botón cancel-btn no encontrado");
+}
+
+  const form = document.getElementById("task-form");
+  const { createTask } = await import("../api/tasks.js");
+  const { showToast } = await import("../utils/toasts.js");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const taskData = {
+      title: fd.get("title"),
+      detail: fd.get("detail"),
+      date: fd.get("date"),
+      time: fd.get("time"),
+      status: fd.get("status"),
+      dateTime: new Date(`${fd.get("date")}T${fd.get("time")}`).getTime(),
+    };
+    try {
+      await createTask(taskData);
+      showToast("Tarea creada exitosamente", "success");
+      closeModal();
+      // Si necesitas refrescar la lista, vuelve a cargar la ruta o re-renderiza
+      // location.hash = "#/taskList";
+    } catch {
+      showToast("Error al crear la tarea", "error");
+    }
+  });
+
+  cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeModal();
+  });
+}
+
 export async function loadView(name) {
   const route = routes[name];
   const app = document.getElementById("app");
@@ -74,7 +138,20 @@ function initHome() {
 
 function initBoard() {
   console.log("Board view initialized");
-  // Aquí puedes agregar lógica específica para la vista del tablero
+
+  // Botón dentro de la vista de lista
+  const btn = document.getElementById("btn-new-task");
+  if (btn) btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    openTaskNewModal();
+  });
+
+  // Enlace del header "+ Nueva Tarea"
+  const headerBtn = document.querySelector("a.btn-new-task");
+  if (headerBtn) headerBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    openTaskNewModal();
+  });
 }
 
 /**
@@ -115,6 +192,7 @@ function handleRoute() {
     setupCharacterCounters();
   }
 
+  
 }
 
 
