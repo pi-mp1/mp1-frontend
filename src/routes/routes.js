@@ -43,7 +43,7 @@ export const routes = {
   taskNew: {
     file: "taskNew.html",
     init: null,
-    layout: true,
+    layout: renderLayout,
   },
 };
 
