@@ -1,8 +1,6 @@
 <section>
   <section class="actions">
-    <!-- <h2>Bienvenido al taskList</h2>
-    <button id="btn-new-task">+ New Task</button>
-    <input id="search" placeholder="Search tasks..." /> -->
+      <button id="openModalBtn" class="btn-create">+ Nueva tarea</button>
   </section>
 
   <section id="task-list">
@@ -31,3 +29,27 @@
     </div>
   </section>
 </section>
+
+<!-- Modal -->
+<div id="taskModal" class="modal hidden">
+  <div class="modal-content">
+    <span id="closeModalBtn" class="close">&times;</span>
+    <h2>Crear Nueva Tarea</h2>
+    <form id="taskForm">
+      <label>Título:</label>
+      <input type="text" id="taskTitle" required />
+
+      <label>Descripción:</label>
+      <textarea id="taskDetail"></textarea>
+
+      <label>Estado:</label>
+      <select id="taskStatus">
+        <option value="todo">Por hacer</option>
+        <option value="in-progress">En progreso</option>
+        <option value="done">Completada</option>
+      </select>
+
+      <button type="submit" class="btn-submit">Crear</button>
+    </form>
+  </div>
+</div>

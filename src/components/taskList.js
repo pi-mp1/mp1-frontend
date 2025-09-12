@@ -6,6 +6,37 @@ import { TaskCard } from "./taskCard.js";
  */
 
 export function renderTaskList(tasks) {
+  const openModalBtn = document.getElementById("openModalBtn");
+  const closeModalBtn = document.getElementById("closeModalBtn");
+  const taskModal = document.getElementById("taskModal");
+  const taskForm = document.getElementById("taskForm");
+  
+  openModalBtn.addEventListener("click", () => {
+    taskModal.classList.remove("hidden");
+  });
+
+  closeModalBtn.addEventListener("click", () => {
+    taskModal.classList.add("hidden");
+  });
+
+  taskForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById("taskTitle").value;
+    const detail = document.getElementById("taskDetail").value;
+    const status = document.getElementById("taskStatus").value;
+
+    // Crear la tarea
+    const task = document.createElement("div");
+    task.className = "task";
+    task.textContent = title;
+
+    document.getElementById(status).appendChild(task);
+
+    // Resetear y cerrar modal
+    taskForm.reset();
+    taskModal.classList.add("hidden");
+  });
 
   const columns = {
     todo: document.getElementById("todo"),
