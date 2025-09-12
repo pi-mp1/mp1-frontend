@@ -1,16 +1,18 @@
-section.login-container {
+section.auth-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 900px;
-  height: 550px;
-  background: #fff;
+  width: 60vw;
+  max-width: 1200px;
+  height: 80vh;
+  max-height: 800px;
+  background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin: 40px auto;
+  margin: 10vh auto;
 }
 
-section.login-card {
+section.auth-card {
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -20,19 +22,11 @@ section.login-card {
 div.logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
 }
 
 div.logo img {
   height: 40px;
   border-radius: 8px;
-}
-
-div.logo h1 {
-  font-size: 20px;
-  font-weight: bold;
-  color: #4cafef;
 }
 
 .input-group {
@@ -41,13 +35,18 @@ div.logo h1 {
   flex-direction: column;
 }
 
+.input-group.flex {
+  flex-direction: row;
+  gap: 12px;
+}
+
 .input-group label {
   font-size: 14px;
   margin-bottom: 6px;
 }
 
 .input-group input {
-  padding: 12px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 14px;
@@ -76,19 +75,19 @@ div.logo h1 {
   background: #333;
 }
 
-.register-text {
+.link-text {
   text-align: center;
   margin-top: 18px;
   font-size: 14px;
 }
 
-.register-text a {
+.link-text a {
   color: #4cafef;
   text-decoration: none;
   font-weight: bold;
 }
 
-.register-text a:hover {
+.link-text a:hover {
   text-decoration: underline;
 }
 
@@ -99,3 +98,10 @@ div.logo h1 {
   align-items: center;
   justify-content: center;
 }
+
+.image-box img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+

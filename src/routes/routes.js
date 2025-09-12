@@ -1,4 +1,4 @@
-import { renderLayout } from "../layouts/main";
+import { renderLayout, renderAuthLayout } from "../layouts";
 
 const app = document.getElementById('app');
 
@@ -14,22 +14,22 @@ export const routes = {
   home: {
     file: "home.html",
     init: initHome,
-    layout: true,
+    layout: renderLayout,
   },
   taskList: {
     file: "taskList.html",
     init: initBoard,
-    layout: true,
+    layout: renderLayout,
   },
-  login: {
+  "login": {
     file: "login.html",
     init: null,
-    layout: false,
+    layout: renderAuthLayout,
   },
-  register: {
+  "register": {
     file: "register.html",
     init: null,
-    layout: false,
+    layout: renderAuthLayout,
   },
 };
 
@@ -49,7 +49,7 @@ export async function loadView(name) {
     const html = await res.text();
 
     // 2. Renderizar con o sin layout
-    app.innerHTML = route.layout ? renderLayout(html) : html;
+    app.innerHTML = route.layout ? route.layout(html) : html;
 
     // 3. Ejecutar inicializador (si existe)
     if (typeof route.init === "function") {
