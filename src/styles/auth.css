@@ -4,7 +4,7 @@ section.auth-container {
   width: 70vw;
   max-width: 1200px;
   height: 80vh;
-  max-height: 800px;
+  max-height: 600px;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -13,7 +13,7 @@ section.auth-container {
 }
 
 section.auth-card {
-  padding: 50px 30px;
+  padding: 40px 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,7 +82,6 @@ div.logo img {
 
 .link-text {
   text-align: center;
-  margin-top: 18px;
   font-size: 14px;
 }
 
@@ -108,6 +107,10 @@ div.logo img {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+
+.div-center {
+  margin-top: 12vh;
 }
 
 @media (max-width: 1024px) {

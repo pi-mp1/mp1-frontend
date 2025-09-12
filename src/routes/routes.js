@@ -31,6 +31,11 @@ export const routes = {
     init: null,
     layout: renderAuthLayout,
   },
+  "reset-password": {
+    file: "reset-password.html",
+    init: null,
+    layout: renderAuthLayout,
+  },
 };
 
 
