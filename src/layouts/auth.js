@@ -10,7 +10,7 @@ export function renderAuthLayout(innerHtml) {
           <img src="logo.jpg" alt="Taskio logo">
         </div>
 
-        <main id="content">
+        <main>
           ${innerHtml} <!-- Aquí entra el formulario (login, registro, etc.) -->
         </main>
       </section>

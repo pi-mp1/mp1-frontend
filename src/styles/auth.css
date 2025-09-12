@@ -1,7 +1,7 @@
 section.auth-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 60vw;
+  width: 70vw;
   max-width: 1200px;
   height: 80vh;
   max-height: 800px;
@@ -13,7 +13,7 @@ section.auth-container {
 }
 
 section.auth-card {
-  padding: 40px;
+  padding: 50px 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,6 +22,7 @@ section.auth-card {
 div.logo {
   display: flex;
   align-items: center;
+  margin-left: 20px;
 }
 
 div.logo img {
@@ -37,7 +38,11 @@ div.logo img {
 
 .input-group.flex {
   flex-direction: row;
-  gap: 12px;
+  gap: 16px;
+}
+
+.input-group.flex input {
+  flex-grow: 1;
 }
 
 .input-group label {
@@ -105,3 +110,40 @@ div.logo img {
   object-fit: cover;
 }
 
+@media (max-width: 1024px) {
+  section.auth-container {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    height: auto;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  section.auth-card {
+    padding: 20px;
+    order: 2;
+  }
+
+  .image-box {
+    height: 40dvh;
+    order: 1;
+  }
+
+  .image-box img {
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 768px) {
+  .input-group.flex {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .image-box {
+    height: 30dvh;
+    order: 1;
+  }
+}
