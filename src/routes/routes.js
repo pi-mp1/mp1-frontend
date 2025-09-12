@@ -1,6 +1,6 @@
 import { renderLayout } from "../layouts/main";
 
-const app = document.getElementById('app');
+const app = document.getElementById("app");
 
 /**
  * Build a safe URL for fetching view fragments inside Vite (dev and build).
@@ -31,8 +31,12 @@ export const routes = {
     init: null,
     layout: false,
   },
+  taskNew: {
+    file: "taskNew.html",
+    init: null,
+    layout: true,
+  },
 };
-
 
 export async function loadView(name) {
   const route = routes[name];
@@ -63,7 +67,6 @@ export async function loadView(name) {
   }
 }
 
-
 function initHome() {
   console.log("Home view initialized");
   // Aquí puedes agregar lógica específica para la vista de inicio
@@ -79,8 +82,7 @@ function initBoard() {
  * Attaches an event listener for URL changes and triggers the first render.
  */
 export function initRouter() {
-    
-  window.addEventListener('hashchange', handleRoute);
+  window.addEventListener("hashchange", handleRoute);
   handleRoute(); // first render
 }
 
@@ -89,14 +91,30 @@ export function initRouter() {
  * Fallback to 'home' if the route is unknown.
  */
 function handleRoute() {
-  const path = (location.hash.startsWith('#/') ? location.hash.slice(2) : '') || 'login';
-   console.log(`Routing to: ${path}`);
-   
-  const route = routes[path] ? path : 'login';
+  const path =
+    (location.hash.startsWith("#/") ? location.hash.slice(2) : "") || "login";
+  console.log(`Routing to: ${path}`);
 
+  const route = routes[path] ? path : "login";
 
-  loadView(route).catch(err => {
+  loadView(route).catch((err) => {
     console.error(err);
     app.innerHTML = `<p style="color:#ffb4b4">Error loading the view.</p>`;
   });
+
+  function initTaskNew() {
+    console.log("Task New view initialized");
+    // lógica para inicializar la vista de nueva tarea
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("date").setAttribute("min", today);
+    //const { setupFormValidation } = await import("../components/taskNew.js");
+    //const { setupFormSubmission } = await import("../components/taskNew.js");
+    //const { setupCharacterCounters } = await import("../components/taskNew.js");
+    setupFormValidation();
+    setupFormSubmission();
+    setupCharacterCounters();
+  }
+
 }
+
+

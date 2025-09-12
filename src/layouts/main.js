@@ -9,11 +9,12 @@ export function renderLayout(innerHtml) {
         <nav>
           <a href="#/home">Inicio</a>
           <a href="#/taskList">Tareas</a>
+          <a href="#/taskNew" class="btn-new-task">+ Nueva Tarea</a>
         </nav>
       </header>
 
       <main id="content">
-       ${innerHtml} <!-- Aquí entra el HTML de la vista -->
+        ${innerHtml} <!-- Aquí entra el HTML de la vista -->
       </main>
 
       <footer>
