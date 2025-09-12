@@ -3,6 +3,8 @@ import { renderTaskList } from "../components/taskList";
 import { renderRegister } from "../components/register";
 import { renderLogin } from "../components/login";
 import { openModal, closeModal } from "../components/modal";
+import { setupTaskForm } from "../components/taskNew.js";
+import { getTasks } from "../api/tasks.js";
 
 const app = document.getElementById("app");
 
@@ -25,12 +27,12 @@ export const routes = {
     init: initBoard,
     layout: renderLayout,
   },
-  "login": {
+  login: {
     file: "login.html",
     init: renderLogin,
     layout: renderAuthLayout,
   },
-  "register": {
+  register: {
     file: "register.html",
     init: renderRegister,
     layout: renderAuthLayout,
@@ -42,11 +44,10 @@ export const routes = {
   },
   taskNew: {
     file: "taskNew.html",
-    init: null,
+    init: initTaskNew,
     layout: renderLayout,
   },
 };
-
 
 async function openTaskNewModal() {
   console.log("=== openTaskNewModal ejecutándose ===");
@@ -61,22 +62,18 @@ async function openTaskNewModal() {
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("date")?.setAttribute("min", today);
 
-  const { setupFormValidation, setupCharacterCounters } = await import("../components/taskNew.js");
-  setupFormValidation();
-  setupCharacterCounters();
-
   // Botón cancelar: cierra el modal sin navegar
-const cancelBtn = document.getElementById("cancel-btn");
-console.log("Botón cancelar encontrado:", cancelBtn);
+  const cancelBtn = document.getElementById("cancel-btn");
+  console.log("Botón cancelar encontrado:", cancelBtn);
 
-if (cancelBtn) {
-  cancelBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    closeModal();
-  });
-} else {
-  console.error("Botón cancel-btn no encontrado");
-}
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeModal();
+    });
+  } else {
+    console.error("Botón cancel-btn no encontrado");
+  }
 
   const form = document.getElementById("task-form");
   const { createTask } = await import("../api/tasks.js");
@@ -91,11 +88,12 @@ if (cancelBtn) {
       date: fd.get("date"),
       time: fd.get("time"),
       status: fd.get("status"),
-      dateTime: new Date(`${fd.get("date")}T${fd.get("time")}`).getTime(),
+      dueDate: new Date(`${fd.get("date")}T${fd.get("time")}`),
     };
     try {
       await createTask(taskData);
       showToast("Tarea creada exitosamente", "success");
+      initBoard();
       closeModal();
       // Si necesitas refrescar la lista, vuelve a cargar la ruta o re-renderiza
       // location.hash = "#/taskList";
@@ -144,46 +142,27 @@ function initHome() {
   // Aquí puedes agregar lógica específica para la vista de inicio
 }
 
-function initBoard() {
-  const tasks = [
-    {
-      id: 1,
-      title: "Configurar proyecto",
-      detail: "Crear estructura con Vite y rutas.",
-      status: "todo",
-      dateTime: Date.now(),
-    },
-    {
-      id: 2,
-      title: "Diseñar base de datos",
-      detail: "Definir tablas y relaciones.",
-      status: "in-progress",
-      dateTime: Date.now(),
-    },
-    {
-      id: 3,
-      title: "Configurar router",
-      detail: "Crear manejador de rutas hash.",
-      status: "done",
-      dateTime: Date.now(),
-    },
-  ];
+export async function initBoard() {
+  const tasks = await getTasks()
+
   renderTaskList(tasks);
   console.log("Board view initialized");
 
   // Botón dentro de la vista de lista
   const btn = document.getElementById("btn-new-task");
-  if (btn) btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    openTaskNewModal();
-  });
+  if (btn)
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openTaskNewModal();
+    });
 
   // Enlace del header "+ Nueva Tarea"
   const headerBtn = document.querySelector("a.btn-new-task");
-  if (headerBtn) headerBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    openTaskNewModal();
-  });
+  if (headerBtn)
+    headerBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openTaskNewModal();
+    });
 }
 
 /**
@@ -210,21 +189,7 @@ function handleRoute() {
     console.error(err);
     app.innerHTML = `<p style="color:#ffb4b4">Error loading the view.</p>`;
   });
-
-  function initTaskNew() {
-    console.log("Task New view initialized");
-    // lógica para inicializar la vista de nueva tarea
-    const today = new Date().toISOString().split("T")[0];
-    document.getElementById("date").setAttribute("min", today);
-    //const { setupFormValidation } = await import("../components/taskNew.js");
-    //const { setupFormSubmission } = await import("../components/taskNew.js");
-    //const { setupCharacterCounters } = await import("../components/taskNew.js");
-    setupFormValidation();
-    setupFormSubmission();
-    setupCharacterCounters();
-  }
-
-  
 }
-
-
+function initTaskNew() {
+  setupTaskForm();
+}

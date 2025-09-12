@@ -1,8 +1,4 @@
 <section>
-  <section class="actions">
-      <button id="openModalBtn" class="btn-create">+ Nueva tarea</button>
-  </section>
-
   <section id="task-list">
     <div class="board">
       <div class="column">
@@ -35,45 +31,58 @@
   <div class="modal-content">
     <h2>Crear Nueva Tarea</h2>
     <form id="taskForm" class="task-form">
+      <div class="form-group">
+        <label for="title">Título *</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          maxlength="50"
+          required
+          placeholder="Ingresa el título de la tarea"
+        />
+        <span class="char-count" id="title-count">0/50</span>
+      </div>
+
+      <div class="form-group">
+        <label for="detail">Detalle</label>
+        <textarea
+          id="detail"
+          name="detail"
+          maxlength="500"
+          rows="4"
+          placeholder="Descripción detallada de la tarea (opcional)"
+        ></textarea>
+        <span class="char-count" id="detail-count">0/500</span>
+      </div>
+
+      <div class="form-row">
         <div class="form-group">
-            <label for="title">Título *</label>
-            <input type="text" id="title" name="title" maxlength="50" required
-                placeholder="Ingresa el título de la tarea" />
-            <span class="char-count" id="title-count">0/50</span>
+          <label for="date">Fecha</label>
+          <input type="date" id="date" name="date" required />
         </div>
 
         <div class="form-group">
-            <label for="detail">Detalle</label>
-            <textarea id="detail" name="detail" maxlength="500" rows="4"
-                placeholder="Descripción detallada de la tarea (opcional)"></textarea>
-            <span class="char-count" id="detail-count">0/500</span>
+          <label for="time">Hora</label>
+          <input type="time" id="time" name="time" required />
         </div>
+      </div>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="date">Fecha</label>
-                <input type="date" id="date" name="date" required />
-            </div>
+      <div class="form-group">
+        <label for="status">Estado</label>
+        <select id="status" name="status" required>
+          <option value="todo">Por hacer</option>
+          <option value="in-progress">Haciendo</option>
+          <option value="done">Hecho</option>
+        </select>
+      </div>
 
-            <div class="form-group">
-                <label for="time">Hora</label>
-                <input type="time" id="time" name="time" required />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="status">Estado</label>
-            <select id="status" name="status" required>
-                <option value="todo">Por hacer</option>
-                <option value="in-progress">Haciendo</option>
-                <option value="done">Hecho</option>
-            </select>
-        </div>
-
-        <div class="form-actions">
-            <button type="button" id="closeModalBtn" class="btn btn-secondary">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Crear Tarea</button>
-        </div>
+      <div class="form-actions">
+        <button type="button" id="closeModalBtn" class="btn btn-secondary">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary">Crear Tarea</button>
+      </div>
     </form>
   </div>
 </div>

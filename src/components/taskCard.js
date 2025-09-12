@@ -31,7 +31,7 @@ export function TaskCard(task) {
   <p class="card-detail">${task.detail || ""}</p>
 
   <div class="card-footer">
-    <small>${new Date(task.dateTime).toLocaleString()}</small>
+    <small>${new Date(task.dueDate).toLocaleString()}</small>
     <span class="status ${task.status}">
       ${formatStatus(task.status)}
     </span>

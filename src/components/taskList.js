@@ -6,18 +6,8 @@ import { TaskCard } from "./taskCard.js";
  */
 
 export function renderTaskList(tasks) {
-  const openModalBtn = document.getElementById("openModalBtn");
-  const closeModalBtn = document.getElementById("closeModalBtn");
   const taskModal = document.getElementById("taskModal");
   const taskForm = document.getElementById("taskForm");
-  
-  openModalBtn.addEventListener("click", () => {
-    taskModal.classList.remove("hidden");
-  });
-
-  closeModalBtn.addEventListener("click", () => {
-    taskModal.classList.add("hidden");
-  });
 
   taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -47,7 +37,7 @@ export function renderTaskList(tasks) {
   // 🔄 Renderizar cards
   function render() {
     Object.values(columns).forEach((col) => (col.innerHTML = "")); // limpiar
-
+    
     tasks.forEach((task) => {
       const card = TaskCard(task);
       columns[task.status].appendChild(card);

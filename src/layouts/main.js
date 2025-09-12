@@ -4,8 +4,11 @@
 export function renderLayout(innerHtml) {
   return `
     <div class="layout">
-      <header>
-        <h1>Mi Aplicación</h1>
+      <header class="header">
+        <div class="logo-container">
+          <h1>TASKIO</h1>
+        </div>
+
         <nav>
           <a href="#/home">Inicio</a>
           <a href="#/taskList">Tareas</a>

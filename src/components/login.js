@@ -12,9 +12,8 @@ export function renderLogin() {
 
       try {
         const data = await loginUser({ email, password });
-        msg.textContent = "Login exitoso 🚀";
-        console.log("Usuario:", data.user);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        msg.textContent = "Login exitoso ";
+
         // Redirigir después de login
         window.location.href = "#/taskList";
       } catch (error) {
