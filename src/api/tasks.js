@@ -23,13 +23,9 @@ const API = import.meta.env.VITE_API_URL;
  * console.log(tasks.length); // → number of tasks
  */
 export async function getTasks() {
-  const token = localStorage.getItem("token"); // or sessionStorage
   const res = await fetch(`${API}/tasks`, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`, // send token here
-    },
+    credentials: "include", // la cookie se manda sola
   });
   if (!res.ok) throw new Error("Error fetching tasks");
   return res.json();
@@ -55,13 +51,10 @@ export async function getTasks() {
  * });
  */
 export async function createTask(task) {
-  const token = localStorage.getItem("token");
   const res = await fetch(`${API}/tasks`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`, 
-    },
+    headers: { "Content-Type": "application/json" },
+    credentials: "include", // también aquí
     body: JSON.stringify(task),
   });
   if (!res.ok) throw new Error("Error creating task");

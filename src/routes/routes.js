@@ -225,26 +225,11 @@ export function initRouter() {
  * @private
  */
 function handleRoute() {
-  const token = localStorage.getItem("token"); // token
-
   const path =
     (location.hash.startsWith("#/") ? location.hash.slice(2) : "") || "login";
   console.log(`Routing to: ${path}`);
 
-  // If no token and path requires auth, redirect to login
-  if (!token && path !== "login" && path !== "register" && path !== "reset-password") {
-    location.hash = "#/login";
-    return;
-  }
-
-  // If token exists and path is login/register/reset, redirect home
-  if (token && (path === "login" || path === "register" || path === "reset-password")) {
-    location.hash = "#/home";
-    
-    return;
-  }
-
-  // Use valid route or fallback to login
+  // Ya no verificamos localStorage, porque usamos cookies
   const route = routes[path] ? path : "login";
 
   loadView(route).catch((err) => {

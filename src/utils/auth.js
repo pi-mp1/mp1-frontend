@@ -13,8 +13,15 @@
  * document.getElementById("logoutBtn").addEventListener("click", logout);
  */
 
-export function logout() {
-  localStorage.removeItem("token");
-  location.href = "/";
+export async function logout() {
+  try {
+    await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
+      method: "POST",
+      credentials: "include", // manda la cookie
+    });
+  } catch (err) {
+    console.error("Error al hacer logout:", err);
+  }
+  location.href = "/"; // redirigir después
 }
 window.logout = logout;
