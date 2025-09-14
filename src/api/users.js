@@ -79,15 +79,13 @@ export async function loginUser(credentials) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
+    credentials: "include", // MUY IMPORTANTE
   });
 
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message || "Error iniciando sesión");
   }
-  const data = await res.json();
-  // Store token in localStorage
-  localStorage.setItem("token", data.token);
 
-  return data;
+  return res.json(); // no guardes nada en localStorage
 }
