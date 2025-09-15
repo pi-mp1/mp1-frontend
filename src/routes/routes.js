@@ -225,6 +225,8 @@ export function initRouter() {
  * @private
  */
 function handleRoute() {
+  const token = localStorage.getItem("token"); // token
+
   const path =
     (location.hash.startsWith("#/") ? location.hash.slice(2) : "") || "login";
   console.log(`Routing to: ${path}`);
