@@ -5,6 +5,8 @@ import { renderLogin } from "../components/login";
 import { openModal, closeModal } from "../components/modal";
 import { setupTaskForm } from "../components/taskNew.js";
 import { getTasks } from "../api/tasks.js";
+import { resetPassword } from "../api/users";
+import { initRestablePassword } from "../components/resetPasswordForm";
 
 const app = document.getElementById("app");
 
@@ -58,7 +60,7 @@ export const routes = {
   },
   "reset-password": {
     file: "reset-password.html",
-    init: null,
+    init: initRestablePassword,
     layout: renderAuthLayout,
   },
   taskNew: {
@@ -66,6 +68,7 @@ export const routes = {
     init: initTaskNew,
     layout: renderLayout,
   },
+
 };
 
 /**
@@ -227,8 +230,9 @@ export function initRouter() {
 function handleRoute() {
   const token = localStorage.getItem("token"); // token
 
-  const path =
-    (location.hash.startsWith("#/") ? location.hash.slice(2) : "") || "login";
+  const hash = location.hash.startsWith("#/") ? location.hash.slice(2) : "";
+  const [routePath] = hash.split("?"); // 👈 separa ruta y query
+  const path = routePath || "login";
   console.log(`Routing to: ${path}`);
 
   // Ya no verificamos localStorage, porque usamos cookies
@@ -246,3 +250,4 @@ function handleRoute() {
 function initTaskNew() {
   setupTaskForm();
 }
+
