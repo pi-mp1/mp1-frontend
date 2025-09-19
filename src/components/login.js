@@ -19,7 +19,7 @@ export function renderLogin() {
 
     // Validar email
     if (!emailRegex.test(emailInput.value)) {
-      emailError.textContent = 'El correo no tiene un formato válido.';
+      emailError.textContent = 'El correo no tiene un formato válido. Debe ser usuario@dominio.com';
       valid = false;
     } else {
       emailError.textContent = '';
@@ -44,7 +44,7 @@ export function renderLogin() {
   passwordInput.addEventListener('blur', validateForm);
 
   // Validación inicial
-  validateForm();
+  //validateForm();
 
   // Event listener para el formulario
   document.getElementById("loginForm").addEventListener("submit", async function (e) {

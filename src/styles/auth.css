@@ -83,6 +83,7 @@ div.logo img {
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.2s ease;
+  flex-shrink: 0;
 }
 
 .btn:hover {
@@ -128,21 +129,22 @@ div.logo img {
 @media (max-width: 1024px) {
   section.auth-container {
     grid-template-columns: 1fr;
-    width: 100%;
-    max-width: 100%;
-    min-height: 100%;
+    width: 90vw;
+    max-width: 600px;
     height: auto;
+    min-height: 100vh;
     margin: 0;
     border-radius: 0;
+    overflow-y: auto;
   }
 
   section.auth-card {
-    padding: 20px;
+    padding: 30px 20px;
     order: 2;
   }
 
   .image-box {
-    height: 40dvh;
+    height: 40vh;
     order: 1;
   }
 
@@ -152,14 +154,39 @@ div.logo img {
 }
 
 @media (max-width: 768px) {
+  section.auth-container {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  section.auth-card {
+    padding: 20px 15px;
+  }
+
   .input-group.flex {
     flex-direction: column;
     gap: 18px;
   }
 
   .image-box {
-    height: 30dvh;
+    height: 30vh;
     order: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  section.auth-card {
+    padding: 15px 10px;
+  }
+
+  .btn {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .input-group input {
+    padding: 12px;
+    font-size: 16px;
   }
 }
 
@@ -268,6 +295,23 @@ input:focus, .btn:focus, a:focus {
   font-size: 0.875rem;
   margin-top: 4px;
   min-height: 1.2em;
+}
+
+/* Mensajes de ayuda */
+.help-text {
+  color: #6b7280;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.help-text code {
+  background-color: #f3f4f6;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  color: #374151;
 }
 
 /* Botón deshabilitado */
