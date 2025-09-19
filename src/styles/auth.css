@@ -91,7 +91,6 @@ div.logo img {
 }
 
 .btn {
-  width: 100%;
   padding: 12px;
   background: #000;
   color: #fff;
@@ -102,6 +101,10 @@ div.logo img {
   cursor: pointer;
   transition: background 0.2s ease;
   flex-shrink: 0;
+}
+
+.btn.full {
+  width: 100%;
 }
 
 .btn:hover {
