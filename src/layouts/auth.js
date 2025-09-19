@@ -1,3 +1,5 @@
+import { isAuthenticated } from "../utils/isAuthenticated.js";
+
 /**
  * Render the authentication layout (split screen: form on the left, image on the right).
  *
@@ -22,7 +24,14 @@
  * document.body.innerHTML = html;
  */
 
-export function renderAuthLayout(innerHtml) {
+export async function renderAuthLayout(innerHtml) {
+  const logged = await isAuthenticated();
+  if (logged) {
+    console.log("Redirigiendo a home");
+    location.href = "/#/home";
+    return;
+  }
+
   return `
     <section class="auth-container">
       <section class="auth-card">

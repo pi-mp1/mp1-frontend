@@ -19,9 +19,10 @@ export async function logout() {
       method: "POST",
       credentials: "include", // manda la cookie
     });
+    localStorage.removeItem("userId");
+    location.href = "/"; // redirigir después
   } catch (err) {
     console.error("Error al hacer logout:", err);
   }
-  location.href = "/"; // redirigir después
 }
 window.logout = logout;

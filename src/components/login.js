@@ -43,8 +43,12 @@ export function renderLogin() {
         const data = await loginUser({ email, password });
         msg.textContent = "Login exitoso ";
 
-        // Redirect after login
-        window.location.href = "#/taskList";
+        if (data.userId) {
+          localStorage.setItem("userId", data.userId);
+          // Redirect after login
+          window.location.href = "#/home";
+        }
+
       } catch (error) {
         msg.textContent = error.message;
       }
