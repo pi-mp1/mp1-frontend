@@ -106,3 +106,11 @@ export async function resetPasswordWithToken(token, newPassword) {
     body: JSON.stringify({password: newPassword }),
   });
 }
+
+export async function session(){
+    return await fetch(`${API}/session`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include"
+  });
+}

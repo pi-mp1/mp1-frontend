@@ -13,6 +13,8 @@
  * document.getElementById("logoutBtn").addEventListener("click", logout);
  */
 
+import { session } from "../api/users";
+
 export async function logout() {
   try {
     await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
@@ -81,8 +83,10 @@ export function getAuthToken() {
  * @function
  * @returns {boolean} True if authenticated, false if redirected to login.
  */
-export function requireAuth() {
-  if (!checkAuth()) {
+export async function requireAuth() {
+  const res = await session()
+  if (!res.ok) {
+    
     window.location.href = '#/login';
     return false;
   }

@@ -81,6 +81,8 @@ export function renderLogin() {
       document.getElementById("msg").className = 'form-feedback is-success';
 
       // Redirigir después de un breve delay
+      console.log("cargar lista de tareas");
+      
       setTimeout(() => {
         window.location.href = "#/taskList";
       }, 500);
