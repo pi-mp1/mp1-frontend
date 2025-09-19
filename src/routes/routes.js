@@ -10,6 +10,7 @@ import { initRestablePassword } from "../components/resetPasswordForm";
 import { showToast } from "../utils/toasts.js";
 import { checkAuth, requireAuth } from "../utils/auth.js";
 import { layoutsActions } from "../components/layoutsActions";
+import { renderProfile } from "../components/profile";
 
 const app = document.getElementById("app");
 
@@ -71,6 +72,11 @@ export const routes = {
     init: initTaskNew,
     layout: renderLayout,
   },
+  profile:{
+    file: "profile.html",
+    init: renderProfile,
+    layout: renderLayout,
+  }
 };
 
 /**
