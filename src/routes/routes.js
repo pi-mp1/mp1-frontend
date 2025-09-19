@@ -107,7 +107,7 @@ export async function openTaskNewModal(task = null) {
     console.log("Modo edición con tarea:", task);
 
     // Cambiar textos
-    titleH2.textContent = "Editar Tarea";
+    titleH2.textContent = "Actualizar Tarea";
     buttonTask.textContent = "Actualizar Tarea";
 
     // Rellenar datos
@@ -185,7 +185,7 @@ export async function loadView(name) {
     const html = await res.text();
 
     // Render with layout
-    app.innerHTML = route.layout ? route.layout(html) : html;
+    app.innerHTML = route.layout ? await route.layout(html) : html;
 
     // Run initializer
     if (typeof route.init === "function") {
@@ -205,10 +205,6 @@ export async function loadView(name) {
  */
 
 function initHome() {
-  // Verificar autenticación antes de cargar
-  if (!requireAuth()) return;
-  
-  console.log("Home view initialized");
   // lógica específica para la vista de inicio
 }
 
@@ -251,19 +247,15 @@ export function initRouter() {
  *
  * @private
  */
-function handleRoute() {
-  const isAuthenticated = checkAuth();
-
+async function handleRoute() {
   const hash = location.hash.startsWith("#/") ? location.hash.slice(2) : "";
   const [routePath] = hash.split("?"); // 👈 separa ruta y query
   const path = routePath || "login";
-  console.log(`Routing to: ${path}`);
 
   // Ya no verificamos localStorage, porque usamos cookies
   const route = routes[path] ? path : "login";
-  console.log("route", route);
 
-  loadView(route).catch((err) => {
+  await loadView(route).catch((err) => {
     console.error(err);
     app.innerHTML = `<p style="color:#ffb4b4">Error loading the view.</p>`;
   });

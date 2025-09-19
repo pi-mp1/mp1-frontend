@@ -2,6 +2,8 @@
  * Renderiza el layout principal y coloca el contenido de la vista dentro de <main id="content">
  */
 import { logout } from "../utils/auth.js";
+import { Icons } from "../utils/icons.js";
+import { isAuthenticated } from "../utils/isAuthenticated.js";
 /**
  * Render the main application layout.
  *
@@ -23,32 +25,34 @@ import { logout } from "../utils/auth.js";
  * document.body.innerHTML = html;
  */
 
-export function renderLayout(innerHtml) {
+export async function renderLayout(innerHtml) {
+  const logged = await isAuthenticated();
+  if (!logged) {
+    console.log("Redirigiendo a login");
+    location.href = "/";
+    return;
+  }
 
   return `
     <div class="layout">
-      <header class="header">
-        <div class="logo-container">
-          <h1>TASKIO</h1>
+      <header class="navbar">
+        <div>
+          <a href="#/home">
+            <img src="logo.jpg" alt="Logo" height="50" />
+          </a>
         </div>
         <nav>
           <a href="#/home">Inicio</a>
           <a href="#/taskList">Tareas</a>
           <a href="#/taskNew" class="btn-new-task">+ Nueva Tarea</a>
-          <!-- Icono Logout con SVG -->
-            <a href="javascript:void(0)" 
+          <a href="javascript:void(0)" 
               id="logout-btn" 
-              class="logout-icon" 
+              class="logout-icon"
               title="Cerrar sesión" 
               onclick="logout()">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
-                  stroke-width="1.5" stroke="currentColor" width="24" height="24">
-                <path stroke-linecap="round" stroke-linejoin="round" 
-                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 
-                    005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 
-                    002.25-2.25V15M18 12H9m9 0l-3-3m3 3l-3 3" />
-              </svg>
-            </a>
+              ${Icons.logout}
+              Cerrar sesión
+          </a>
         </nav>
       </header>
 
@@ -63,6 +67,6 @@ export function renderLayout(innerHtml) {
       </footer>
     </div>
   `;
-  
-  
+
+
 }
