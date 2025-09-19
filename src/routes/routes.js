@@ -107,7 +107,7 @@ export async function openTaskNewModal(task = null) {
     console.log("Modo edición con tarea:", task);
 
     // Cambiar textos
-    titleH2.textContent = "Editar Tarea";
+    titleH2.textContent = "Actualizar Tarea";
     buttonTask.textContent = "Actualizar Tarea";
 
     // Rellenar datos
