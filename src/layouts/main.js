@@ -3,7 +3,6 @@
  */
 import { logout } from "../utils/auth.js";
 import { Icons } from "../utils/icons.js";
-import { isAuthenticated } from "../utils/isAuthenticated.js";
 /**
  * Render the main application layout.
  *
@@ -25,33 +24,33 @@ import { isAuthenticated } from "../utils/isAuthenticated.js";
  * document.body.innerHTML = html;
  */
 
-export async function renderLayout(innerHtml) {
-  const logged = await isAuthenticated();
-  if (!logged) {
-    console.log("Redirigiendo a login");
-    location.href = "/";
-    return;
-  }
-
+export function renderLayout(innerHtml) {
   return `
     <div class="layout">
-      <header class="navbar">
-        <div>
-          <a href="#/home">
-            <img src="logo.jpg" alt="Logo" height="50" />
-          </a>
+      <header class="header">
+        <div class="logo-container">
+          <img src="logo_icon.png" alt="Taskio ilustración" class="logo">
+
+          <h1>TASKIO</h1>
         </div>
-        <nav>
-          <a href="#/home">Inicio</a>
-          <a href="#/taskList">Tareas</a>
-          <a href="#/taskNew" class="btn-new-task">+ Nueva Tarea</a>
+
+        <!-- Botón Hamburguesa -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">
+          ☰
+        </button>
+
+        <!-- Menú -->
+        <nav id="nav-menu" class="nav-menu">
+          <a href="#/home">${Icons.home}Inicio</a>
+          <a href="#/taskList">${Icons.tasks}Tareas</a>
+          <a href="#/taskNew" class="btn-new-task">${Icons.newTask}Nueva Tarea</a>
+          <a href="" class="btn-new-task">${Icons.profile}Perfil</a>
           <a href="javascript:void(0)" 
-              id="logout-btn" 
-              class="logout-icon"
-              title="Cerrar sesión" 
-              onclick="logout()">
-              ${Icons.logout}
-              Cerrar sesión
+            id="logout-btn" 
+            class="logout-icon" 
+            title="Cerrar sesión" 
+            onclick="logout()">
+            ${Icons.logout} Cerrar Sesión
           </a>
         </nav>
       </header>
@@ -67,6 +66,4 @@ export async function renderLayout(innerHtml) {
       </footer>
     </div>
   `;
-
-
 }

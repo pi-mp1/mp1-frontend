@@ -6,18 +6,15 @@
 }
 
 h2.To.do {
-  color: #3b82f6;
-  /* Azul */
+  color: #3b82f6; /* Azul */
 }
 
 h2.in-progress {
-  color: #f59e0b;
-  /* Amarillo */
+  color: #f59e0b; /* Amarillo */
 }
 
 h2.completed {
-  color: #10b981;
-  /* Verde */
+  color: #10b981; /* Verde */
 }
 
 .column {
@@ -30,10 +27,10 @@ h2.completed {
 }
 
 
-.tasks {
+.tasks{
   flex-direction: column;
   display: flex;
-  gap: 1rem;
+  gap: 1rem; 
 }
 
 .column h2 {
@@ -47,7 +44,7 @@ h2.completed {
   background: white;
   border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
@@ -217,8 +214,7 @@ h2.completed {
 
 @media (max-width: 768px) {
   .board {
-    grid-template-columns: 1fr;
-    /* una columna en móviles */
+    grid-template-columns: 1fr; /* una columna en móviles */
   }
 }
 
@@ -254,39 +250,39 @@ h2.completed {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  outline: none;
-  border-color: #2563eb;
+    outline: none;
+    border-color: #2563eb;
 }
 
 .char-count {
-  font-size: 0.875rem;
-  color: #6b7280;
-  text-align: right;
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: right;
 }
 
 .form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
 }
 
-.form-actions .btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.form-actions .btn-primary {
-  background: #2563eb;
-  color: white;
+.btn-primary {
+    background: #2563eb;
+    color: white;
 }
 
-.form-actions .btn-primary:hover {
-  background: #1d4ed8;
+.btn-primary:hover {
+    background: #1d4ed8;
 }
 
 .form-actions .btn-secondary {
@@ -295,7 +291,15 @@ h2.completed {
   border: 1px solid #6b7280;
 }
 
-.form-actions .btn-secondary:hover {
-  background: #6b7280;
+.btn-secondary:hover {
+    background: #4b5563;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2563eb; /* azul */
+  padding: 10px;
   color: white;
 }

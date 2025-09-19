@@ -2,50 +2,38 @@
 .layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* pantalla completa */
-  font-family: Arial,
+  min-height: 100vh;
+  /* pantalla completa */
+  font-family: Arial, sans-serif;
 }
 
 /* Header */
-header.navbar {
-  padding-block: 0.6rem;
-  padding-inline: 2.4rem;
+header {
+  background: #2563eb;
+  /* azul */
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: white;
-  border-bottom: 2px solid #e5e7eb;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-header nav {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
 header nav a {
-  color: black;
+  color: white;
+  margin-left: 8px;
   text-decoration: none;
-  font-weight: 600;
-  padding-inline: 0.6rem;
-  padding-block: 0.3rem;
+  font-weight: 500;
   transition: color 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-header nav a.logout-icon {
-  stroke: black;
-  transition: color 0.2 ease;
+  
 }
 
 header nav a:hover {
-  background-color: #2564ebf0;
-  border-radius: 6px;
-  color: white;
-  stroke: white;
+  color: #cbd5e1;
+  /* gris claro al pasar */
 }
 
 /* Contenido */
@@ -53,10 +41,6 @@ main {
   flex: 1;
   /* ocupa todo el espacio disponible */
   padding: 1.5rem;
-}
-
-main#content {
-  color: white;
 }
 
 /* Footer */
@@ -97,7 +81,7 @@ footer {
   width: min(720px, 92vw);
   max-height: 86vh;
   overflow: auto;
-  padding: 0 1.5rem 1.5rem 1.5rem;
+  padding: 1.5rem;
 }
 
 .modal-actions {
@@ -114,4 +98,76 @@ body {
     radial-gradient(140% 70% at 85% 20%, rgba(255,255,255,0.25) 0%, transparent 60%),
     linear-gradient(180deg, #072e54 0%, #0b5aa3 60%, #50e9f7 100%);
   background-attachment: fixed;
+}
+
+
+
+/* Botón hamburguesa */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none; /* Se mostrará solo en móviles */
+}
+
+/* Menú principal */
+.nav-menu {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-menu :hover{
+  color:#f59e0b;
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block; /* Mostrar hamburguesa */
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 60px; /* Altura del header */
+    right: 10px;
+    background: #333;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 8px;
+    display: none; /* Oculto por defecto */
+    width: 200px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+
+  .nav-menu.active {
+    display: flex; /* Mostrar al hacer clic */
+  }
+
+ .nav-menu a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+  .logout-icon svg {
+    stroke: white;
+  }
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
 }

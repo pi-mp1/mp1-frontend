@@ -8,6 +8,8 @@ import { createTask, getTasks, updateTask } from "../api/tasks.js";
 import { resetPassword } from "../api/users";
 import { initRestablePassword } from "../components/resetPasswordForm";
 import { showToast } from "../utils/toasts.js";
+import { checkAuth, requireAuth } from "../utils/auth.js";
+import { layoutsActions } from "../components/layoutsActions";
 
 const app = document.getElementById("app");
 
@@ -189,6 +191,9 @@ export async function loadView(name) {
 
     // Run initializer
     if (typeof route.init === "function") {
+      layoutsActions()
+
+
       route.init();
     }
   } catch (err) {
@@ -205,29 +210,21 @@ export async function loadView(name) {
  */
 
 function initHome() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+
+  console.log("Home view initialized");
   // lógica específica para la vista de inicio
 }
 
 export async function initBoard() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+
   const tasks = await getTasks();
 
   renderTaskList(tasks);
 
-  // Button inside the task list view
-  const btn = document.getElementById("btn-new-task");
-  if (btn)
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      openTaskNewModal();
-    });
-
-  // Header link "+ New Task"
-  const headerBtn = document.querySelector("a.btn-new-task");
-  if (headerBtn)
-    headerBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      openTaskNewModal();
-    });
 }
 
 /**
@@ -247,7 +244,9 @@ export function initRouter() {
  *
  * @private
  */
-async function handleRoute() {
+function handleRoute() {
+  const isAuthenticated = checkAuth();
+
   const hash = location.hash.startsWith("#/") ? location.hash.slice(2) : "";
   const [routePath] = hash.split("?"); // 👈 separa ruta y query
   const path = routePath || "login";
@@ -255,7 +254,7 @@ async function handleRoute() {
   // Ya no verificamos localStorage, porque usamos cookies
   const route = routes[path] ? path : "login";
 
-  await loadView(route).catch((err) => {
+  loadView(route).catch((err) => {
     console.error(err);
     app.innerHTML = `<p style="color:#ffb4b4">Error loading the view.</p>`;
   });
