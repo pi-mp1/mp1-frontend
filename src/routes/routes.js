@@ -1,5 +1,4 @@
 import { renderLayout, renderAuthLayout } from "../layouts";
-import { renderAboutLayout } from "../layouts/about";
 import { renderTaskList } from "../components/taskList";
 import { renderRegister } from "../components/register";
 import { renderLogin } from "../components/login";
@@ -50,7 +49,7 @@ export const routes = {
   about: {
     file: "about.html",
     init: initAbout,
-    layout: renderAboutLayout,
+    layout: renderLayout,
   },
   taskList: {
     file: "taskList.html",
@@ -224,12 +223,6 @@ function initHome() {
 
   console.log("Home view initialized");
   // lógica específica para la vista de inicio
-}
-
-export async function initBoard() {
-  // Verificar autenticación antes de cargar
-  if (!requireAuth()) return;
-
 }
 
 /**

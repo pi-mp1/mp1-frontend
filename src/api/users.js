@@ -75,7 +75,6 @@ export async function registerUser(user) {
  * }
  */
 export async function loginUser(credentials) {
-  console.log("Logging in with credentials:", credentials);
   const res = await fetch(`${API}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
