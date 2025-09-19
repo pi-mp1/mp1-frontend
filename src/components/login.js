@@ -48,7 +48,7 @@ export function renderLogin() {
 
     // Validar email
     if (!emailRegex.test(emailInput.value)) {
-      emailError.textContent = "El correo no tiene un formato válido.";
+      emailError.textContent = 'El correo no tiene un formato válido';
       valid = false;
     } else {
       emailError.textContent = "";
@@ -73,7 +73,7 @@ export function renderLogin() {
   passwordInput.addEventListener("blur", validateForm);
 
   // Validación inicial
-  validateForm();
+  //validateForm();
 
   // Event listener para el formulario
   document
@@ -90,10 +90,6 @@ export function renderLogin() {
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span class="spinner"></span> Procesando...';
 
-      // Limpiar mensajes de error anteriores
-      document.getElementById("msg").textContent = "";
-      document.getElementById("msg").className = "form-feedback";
-
       try {
         const email = emailInput.value;
         const password = passwordInput.value;
@@ -107,10 +103,6 @@ export function renderLogin() {
           localStorage.setItem("userName", data.user?.name || "Usuario");
         }
 
-        // Mostrar mensaje de éxito
-        document.getElementById("msg").textContent = "Login exitoso";
-        document.getElementById("msg").className = "form-feedback is-success";
-
         // Redirigir después de un breve delay
         console.log("cargar lista de tareas");
 
@@ -120,13 +112,11 @@ export function renderLogin() {
       } catch (error) {
         const serverMsg = error?.message || "";
         const friendly = /invalid|incorrect|not found|unauthorized/i.test(
-          serverMsg
+          serverMsg 
         )
           ? "Correo o contraseña incorrectos"
           : "No pudimos iniciar sesión. Intenta nuevamente.";
 
-        document.getElementById("msg").textContent = friendly;
-        document.getElementById("msg").className = "form-feedback is-error";
       } finally {
         // Restaurar botón
         submitBtn.disabled = false;
