@@ -245,12 +245,6 @@ h2.completed {
   font-size: 1rem;
   transition: border-color 0.2s ease;
   font-size: 0.9rem;
-    padding: 0.75rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.2s ease;
-    font-family: Arial, sans-serif;
 }
 
 .form-group input:focus,
