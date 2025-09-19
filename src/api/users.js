@@ -80,7 +80,7 @@ export async function loginUser(credentials) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
-    credentials: "include", // MUY IMPORTANTE
+    credentials: "include", // Include cookies for session management
   });
 
   if (!res.ok) {

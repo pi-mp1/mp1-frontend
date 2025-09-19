@@ -5,6 +5,8 @@
   min-height: 100vh;
   /* pantalla completa */
   font-family: Arial, sans-serif;
+  min-height: 100vh; /* pantalla completa */
+  font-family: Arial,
 }
 
 /* Header */
@@ -81,7 +83,7 @@ footer {
   width: min(720px, 92vw);
   max-height: 86vh;
   overflow: auto;
-  padding: 1.5rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
 }
 
 .modal-actions {
@@ -167,7 +169,7 @@ body {
 }
 
 .logo {
-  width: 14px;
-  height: 14px;
+  width: 35px;
+  height: 35px;
   object-fit: contain;
 }

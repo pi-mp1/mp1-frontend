@@ -54,7 +54,7 @@ h2.completed {
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 /* Header con título y estado */
@@ -87,7 +87,8 @@ h2.completed {
 }
 
 .icon-btn:hover {
-  background: #e5e7eb; /* gris suave */
+  background: #e5e7eb;
+  /* gris suave */
   color: #111;
 }
 
@@ -128,6 +129,10 @@ h2.completed {
   font-size: 0.75rem;
   color: #888;
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
 }
 
 .actions {
@@ -145,19 +150,24 @@ h2.completed {
   cursor: pointer;
   font-weight: bold;
 }
+
 .btn-create:hover {
   background: #1e40af;
 }
 
 /* Modal */
 .modal {
+  display: none; /* Oculto por defecto */
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rebeccapurple; /* Fondo semitransparente */
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.5);
+  justify-content: center;
 }
 
 .modal.hidden {
@@ -165,12 +175,13 @@ h2.completed {
 }
 
 .modal-content {
-text-align: left;
-  background: white;
+  background: #fff;
   padding: 2rem;
   border-radius: 8px;
-  width: 800px;
-  max-width: 90%;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .close {
@@ -188,6 +199,7 @@ text-align: left;
   cursor: pointer;
   margin-top: 1rem;
 }
+
 .btn-submit:hover {
   background: #047857;
 }
@@ -195,7 +207,8 @@ text-align: left;
 /* Responsivo */
 @media (max-width: 1024px) {
   .board {
-    grid-template-columns: repeat(2, 1fr); /* dos columnas en tablets */
+    grid-template-columns: repeat(2, 1fr);
+    /* dos columnas en tablets */
   }
 }
 
@@ -205,27 +218,33 @@ text-align: left;
   }
 }
 
-
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .form-group label {
-    font-weight: 600;
-    color: #374151;
+  font-weight: 600;
+  color: #374151;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
+  font-family: inherit;
+  padding: 0.6rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  font-size: 0.9rem;
     padding: 0.75rem;
     border: 2px solid #e5e7eb;
     border-radius: 8px;
@@ -272,9 +291,10 @@ text-align: left;
     background: #1d4ed8;
 }
 
-.btn-secondary {
-    background: #6b7280;
-    color: white;
+.form-actions .btn-secondary {
+  background: white;
+  color: #6b7280;
+  border: 1px solid #6b7280;
 }
 
 .btn-secondary:hover {
@@ -289,4 +309,3 @@ text-align: left;
   padding: 10px;
   color: white;
 }
-

@@ -51,7 +51,6 @@ export async function getTasks() {
  * });
  */
 export async function createTask(task) {
-  const token = localStorage.getItem("token");
   const res = await fetch(`${API}/tasks`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

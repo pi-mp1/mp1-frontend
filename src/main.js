@@ -22,4 +22,4 @@ import './styles/index.css';
  */
 
 // Initialize the hash-based router (manages app navigation)
-initRouter();
+await initRouter();
