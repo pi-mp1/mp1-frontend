@@ -5,6 +5,7 @@ import { renderLogin } from "../components/login";
 import { openModal, closeModal } from "../components/modal";
 import { setupTaskForm } from "../components/taskNew.js";
 import { getTasks } from "../api/tasks.js";
+import { checkAuth, requireAuth } from "../utils/auth.js";
 
 const app = document.getElementById("app");
 
@@ -180,11 +181,17 @@ export async function loadView(name) {
  */
 
 function initHome() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
   console.log("Home view initialized");
   // lógica específica para la vista de inicio
 }
 
 export async function initBoard() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
   const tasks = await getTasks()
 
   renderTaskList(tasks);
@@ -225,22 +232,21 @@ export function initRouter() {
  * @private
  */
 function handleRoute() {
-  const token = localStorage.getItem("token"); // token
+  const isAuthenticated = checkAuth();
 
   const path =
     (location.hash.startsWith("#/") ? location.hash.slice(2) : "") || "login";
   console.log(`Routing to: ${path}`);
 
-  // If no token and path requires auth, redirect to login
-  if (!token && path !== "login" && path !== "register" && path !== "reset-password") {
+  // If not authenticated and path requires auth, redirect to login
+  if (!isAuthenticated && path !== "login" && path !== "register" && path !== "reset-password") {
     location.hash = "#/login";
     return;
   }
 
-  // If token exists and path is login/register/reset, redirect home
-  if (token && (path === "login" || path === "register" || path === "reset-password")) {
-    location.hash = "#/home";
-    
+  // If authenticated and path is login/register/reset, redirect to dashboard
+  if (isAuthenticated && (path === "login" || path === "register" || path === "reset-password")) {
+    location.hash = "#/taskList";
     return;
   }
 
@@ -257,5 +263,8 @@ function handleRoute() {
  * Initialize the "New Task" view directly (non-modal).
  */
 function initTaskNew() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
   setupTaskForm();
 }
