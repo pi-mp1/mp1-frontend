@@ -294,3 +294,351 @@ input:focus, .btn:focus, a:focus {
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+
+section.auth-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 70vw;
+  max-width: 1200px;
+  height: 80vh;
+  max-height: 600px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 10vh auto;
+}
+
+section.auth-card {
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+div.logo img {
+  height: 60px;
+  width: auto;
+  max-width: 240px;
+  border-radius: 8px;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.input-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group.flex {
+  flex-direction: row;
+  gap: 16px;
+}
+
+.input-group.flex input {
+  flex-grow: 1;
+}
+
+.input-group label {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #4cafef;
+  box-shadow: 0 0 4px rgba(76, 175, 239, 0.5);
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #000;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn:hover {
+  background: #333;
+}
+
+.link-text {
+  text-align: center;
+  font-size: 14px;
+}
+
+.link-text a {
+  color: #4cafef;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link-text a:hover {
+  text-decoration: underline;
+}
+
+.image-box {
+  background: #f0f0f0;
+  border-left: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-box img {
+  width: auto;
+  height: auto;
+  max-width: 110%;
+  max-height: 110%;
+  margin-top: 15%;
+  object-fit: contain;
+}
+
+.div-center {
+  margin-top: 12vh;
+}
+
+@media (max-width: 1024px) {
+  section.auth-container {
+    grid-template-columns: 1fr;
+    width: 90vw;
+    max-width: 600px;
+    height: auto;
+    min-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    overflow-y: auto;
+  }
+
+  section.auth-card {
+    padding: 30px 20px;
+    order: 2;
+  }
+
+  .image-box {
+    height: 40vh;
+    order: 1;
+  }
+
+  .image-box img {
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 768px) {
+  section.auth-container {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  section.auth-card {
+    padding: 20px 15px;
+  }
+
+  .input-group.flex {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .image-box {
+    height: 30vh;
+    order: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  section.auth-card {
+    padding: 15px 10px;
+  }
+
+  .btn {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .input-group input {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+.modal {
+  display: none;
+  /* Oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Fondo semitransparente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  margin-bottom: 10px;
+  color: green;
+}
+
+:root {
+  --brand-1: #0b5aa3;
+  --brand-2: #44d9a5;
+  --brand-3: #072e54;
+}
+
+.image-box {
+  position: relative;
+  background:
+    radial-gradient(120% 120% at 10% 10%, rgba(255,255,255,.15) 0%, transparent 60%),
+    linear-gradient(160deg, #072e54, #0b5aa3 60%, #29c381);
+}
+
+.image-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.04);
+  pointer-events: none;
+}
+
+.form-feedback { margin-top: 10px; text-align: center; font-size: 14px;}
+.form-feedback.is-error { color: #b91c1c;}
+.form-feedback.is-success { color: #166534;}
+
+.input-error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.15); }
+.input-success { border-color: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.15); }
+
+.link-text a {
+  color: #1d4ed8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+input:focus, .btn:focus, a:focus {
+  outline: 3px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mensajes de error */
+.error-message {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: 4px;
+  min-height: 1.2em;
+}
+
+/* Mensajes de ayuda */
+.help-text {
+  color: #6b7280;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.help-text code {
+  background-color: #f3f4f6;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  color: #374151;
+}
+
+/* Botón deshabilitado */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #666 !important;
+}
+
+.btn:disabled:hover {
+  background: #666 !important;
+}
+
+/* Mensajes de feedback mejorados */
+.form-feedback {
+  margin: 10px 0;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.form-feedback.is-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-feedback.is-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}

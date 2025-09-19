@@ -1,4 +1,5 @@
 import { renderLayout, renderAuthLayout } from "../layouts";
+import { renderAboutLayout } from "../layouts/about";
 import { renderTaskList } from "../components/taskList";
 import { renderRegister } from "../components/register";
 import { renderLogin } from "../components/login";
@@ -45,6 +46,11 @@ export const routes = {
     file: "home.html",
     init: initHome,
     layout: renderLayout,
+  },
+  about: {
+    file: "about.html",
+    init: initAbout,
+    layout: renderAboutLayout,
   },
   taskList: {
     file: "taskList.html",
@@ -193,8 +199,11 @@ export async function loadView(name) {
     if (typeof route.init === "function") {
       layoutsActions()
 
-
-      route.init();
+      try {
+        route.init();
+      } catch (error) {
+        console.error(`Error initializing route ${name}:`, error);
+      }
     }
   } catch (err) {
     console.error(err);
@@ -221,6 +230,23 @@ export async function initBoard() {
   // Verificar autenticación antes de cargar
   if (!requireAuth()) return;
 
+}
+
+/**
+ * Initialize the about page.
+ */
+export function initAbout() {
+  // Verificar autenticación antes de cargar
+  // if (!requireAuth()) {
+  //   console.log("User not authenticated, redirecting to login");
+  //   return;
+  // }
+  
+  console.log("About page initialized");
+  // lógica específica para la página "Sobre nosotros"
+}
+
+export async function initBoard() {
   const tasks = await getTasks();
 
   renderTaskList(tasks);
