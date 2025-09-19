@@ -27,28 +27,24 @@ export function renderLayout(innerHtml) {
 
   return `
     <div class="layout">
-      <header class="header">
-        <div class="logo-container">
-          <h1>TASKIO</h1>
+      <header class="navbar">
+        <div>
+          <a href="#/home">
+            <img src="logo.jpg" alt="Logo" height="40" />
+          </a>
         </div>
         <nav>
           <a href="#/home">Inicio</a>
           <a href="#/taskList">Tareas</a>
           <a href="#/taskNew" class="btn-new-task">+ Nueva Tarea</a>
-          <!-- Icono Logout con SVG -->
-            <a href="javascript:void(0)" 
+          <a href="javascript:void(0)" 
               id="logout-btn" 
-              class="logout-icon" 
+              class="logout-icon"
               title="Cerrar sesión" 
               onclick="logout()">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
-                  stroke-width="1.5" stroke="currentColor" width="24" height="24">
-                <path stroke-linecap="round" stroke-linejoin="round" 
-                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 
-                    005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 
-                    002.25-2.25V15M18 12H9m9 0l-3-3m3 3l-3 3" />
-              </svg>
-            </a>
+              <svg fill="none" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+              Cerrar sesión
+          </a>
         </nav>
       </header>
 
@@ -63,6 +59,6 @@ export function renderLayout(innerHtml) {
       </footer>
     </div>
   `;
-  
-  
+
+
 }

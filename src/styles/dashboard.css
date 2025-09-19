@@ -279,24 +279,3 @@ text-align: left;
 .btn-secondary:hover {
     background: #4b5563;
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #2563eb; /* azul */
-  padding: 1rem;
-  color: white;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
