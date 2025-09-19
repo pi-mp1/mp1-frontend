@@ -52,7 +52,7 @@ export function renderRegister() {
     // Validar contraseña - solo mostrar error si hay contenido
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
     if (passwordInput.value.length > 0 && !passwordRegex.test(passwordInput.value)) {
-      passwordError.textContent = 'La contraseña debe tener 8 caracteres, 1 mayúscula, 1 número y 1 carácter especial';
+      passwordError.textContent = 'Debe tener al menos 8 caracteres, mayúscula, minúscula y caracter especial';
       passwordInput.classList.add('error');
       passwordInput.classList.remove('valid');
       valid = false;

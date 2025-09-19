@@ -1,10 +1,14 @@
 /* Estilos para mensajes de error en el formulario de registro */
 .error-message {
   color: #e74c3c;
-  font-size: 0.875rem;
+  font-size: 0.5rem;
   margin-top: 0.25rem;
   display: block;
   min-height: 1.25rem;
+}
+
+.error-message.responsive {
+  display: block;
 }
 
 /* Estilos para el botón deshabilitado */
@@ -24,4 +28,10 @@ input.error {
 input.valid {
   border-color: #27ae60;
   box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.2);
+}
+
+@media (max-width: 768px) {
+  .error-message.responsive {
+    display: none;
+  }
 }
