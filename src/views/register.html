@@ -16,8 +16,14 @@
     </div>
 
     <div class="input-group flex">
-      <input type="password" id="password" placeholder="Contraseña" required minlength="8">
-      <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+      <div>
+        <input type="password" id="password" placeholder="Contraseña" required minlength="8">
+        <span id="passwordError" class="error-message"></span>
+      </div>
+      <div>
+        <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+        <span id="confirmPasswordError" class="error-message"></span>
+      </div>
     </div>
     
     <p id="msg" style="color:red; margin-top:10px; display: flex; justify-content: center;"></p>

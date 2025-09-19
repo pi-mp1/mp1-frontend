@@ -8,6 +8,8 @@ import { createTask, getTasks, updateTask } from "../api/tasks.js";
 import { resetPassword } from "../api/users";
 import { initRestablePassword } from "../components/resetPasswordForm";
 import { showToast } from "../utils/toasts.js";
+import { checkAuth, requireAuth } from "../utils/auth.js";
+//import { layoutsActions } from "../components/layoutsActions";
 
 const app = document.getElementById("app");
 

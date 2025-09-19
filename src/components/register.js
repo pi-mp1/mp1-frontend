@@ -38,6 +38,57 @@ import { showToast } from "../utils/toasts";
  */
 
 export function renderRegister() {
+  // Obtener referencias a los elementos del formulario
+  const passwordInput = document.getElementById("password");
+  const confirmPasswordInput = document.getElementById("confirmPassword");
+  const passwordError = document.getElementById("passwordError");
+  const confirmPasswordError = document.getElementById("confirmPasswordError");
+  const submitBtn = document.querySelector("#registerForm button[type='submit']");
+
+  // Función de validación en tiempo real para registro
+  function validateRegisterForm() {
+    let valid = true;
+
+    // Validar contraseña - solo mostrar error si hay contenido
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    if (passwordInput.value.length > 0 && !passwordRegex.test(passwordInput.value)) {
+      passwordError.textContent = 'La contraseña debe tener 8 caracteres, 1 mayúscula, 1 número y 1 carácter especial';
+      passwordInput.classList.add('error');
+      passwordInput.classList.remove('valid');
+      valid = false;
+    } else {
+      passwordError.textContent = '';
+      passwordInput.classList.remove('error');
+      if (passwordInput.value.length > 0) {
+        passwordInput.classList.add('valid');
+      }
+    }
+
+    // Validar confirmación de contraseña - solo mostrar error si hay contenido
+    if (confirmPasswordInput.value.length > 0 && passwordInput.value !== confirmPasswordInput.value) {
+      confirmPasswordError.textContent = 'Las contraseñas no coinciden';
+      confirmPasswordInput.classList.add('error');
+      confirmPasswordInput.classList.remove('valid');
+      valid = false;
+    } else {
+      confirmPasswordError.textContent = '';
+      confirmPasswordInput.classList.remove('error');
+      if (confirmPasswordInput.value.length > 0) {
+        confirmPasswordInput.classList.add('valid');
+      }
+    }
+
+    // Habilitar/deshabilitar botón
+    submitBtn.disabled = !valid;
+  }
+
+  // validación en tiempo real
+  passwordInput.addEventListener('input', validateRegisterForm);
+  confirmPasswordInput.addEventListener('input', validateRegisterForm);
+
+  // Validación inicial
+  validateRegisterForm();
+
   document
     .getElementById("registerForm")
     .addEventListener("submit", async function (e) {
@@ -49,16 +100,11 @@ export function renderRegister() {
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirmPassword").value;
       const msg = document.getElementById("msg");
-      // Validations
-      if (password !== confirmPassword) {
-        showToast("Las contraseñas no coinciden", "error");
+      
+      // Validar que el formulario esté válido antes de enviar
+      if (submitBtn.disabled) {
+        showToast("Por favor, corrige los errores en el formulario", "error");
         return;
-      }
-
-      const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
-      if (!regexPassword.test(password)) {
-        showToast("La contraseña debe tener minúscula mayúscula y caracter especial", "error");
-        return
       }
 
       try {
