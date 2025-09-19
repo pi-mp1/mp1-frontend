@@ -265,5 +265,8 @@ async function handleRoute() {
  * Initialize the "New Task" view directly (non-modal).
  */
 function initTaskNew() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
   setupTaskForm();
 }

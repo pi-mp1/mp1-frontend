@@ -36,7 +36,13 @@ export async function renderAuthLayout(innerHtml) {
     <section class="auth-container">
       <section class="auth-card">
         <div class="logo">
-          <img src="logo.jpg" alt="Taskio logo">
+          <img
+            src="logo.png"
+            srcset="logo.png 1x, logo.png 2x"
+            sizes="(max-width: 1024px) 140px, 180px"
+            alt="Taskio logo"
+            width="180" height="40"
+          />
         </div>
 
         <main>

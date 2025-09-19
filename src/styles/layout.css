@@ -2,6 +2,7 @@
 .layout {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   min-height: 100vh; /* pantalla completa */
   font-family: Arial,
 }
@@ -10,6 +11,19 @@
 header.navbar {
   padding-block: 0.6rem;
   padding-inline: 2.4rem;
+=======
+  min-height: 100vh;
+  /* pantalla completa */
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+  background: #2563eb;
+  /* azul */
+  color: white;
+  padding: 1rem;
+>>>>>>> 14f7c907f59603cc6c94c186eaed948f820771dd
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,21 +56,28 @@ header nav a.logout-icon {
 }
 
 header nav a:hover {
+<<<<<<< HEAD
   background-color: #2564ebf0;
   border-radius: 6px;
   color: white;
   stroke: white;
+=======
+  color: #cbd5e1;
+  /* gris claro al pasar */
+>>>>>>> 14f7c907f59603cc6c94c186eaed948f820771dd
 }
 
 /* Contenido */
 main {
-  flex: 1; /* ocupa todo el espacio disponible */
+  flex: 1;
+  /* ocupa todo el espacio disponible */
   padding: 1.5rem;
 }
 
 /* Footer */
 footer {
-  background: #e5e7eb; /* gris claro */
+  background: #e5e7eb;
+  /* gris claro */
   text-align: center;
   padding: 1rem;
   font-size: 0.9rem;
@@ -73,19 +94,21 @@ footer {
   z-index: 1000;
 }
 
-#modal-root.is-open { display: flex; }
+#modal-root.is-open {
+  display: flex;
+}
 
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .modal-dialog {
   position: relative;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
   width: min(720px, 92vw);
   max-height: 86vh;
   overflow: auto;
@@ -97,4 +120,13 @@ footer {
   justify-content: flex-end;
   gap: 0.75rem;
   margin-top: 1rem;
+}
+
+/* Fallback si :has no está soportado; coméntalo si no lo necesitas */
+
+body {
+  background:
+    radial-gradient(140% 70% at 85% 20%, rgba(255,255,255,0.25) 0%, transparent 60%),
+    linear-gradient(180deg, #072e54 0%, #0b5aa3 60%, #50e9f7 100%);
+  background-attachment: fixed;
 }
