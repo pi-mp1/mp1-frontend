@@ -1,3 +1,4 @@
+import { updateTask } from "../api/tasks.js";
 import { TaskCard } from "./taskCard.js";
 
 /**
@@ -88,7 +89,7 @@ export function renderTaskList(tasks) {
       col.classList.remove("highlight");
     });
 
-    parent.addEventListener("drop", (e) => {
+    parent.addEventListener("drop", async(e) => {
       e.preventDefault();
       col.classList.remove("highlight");
 
@@ -97,9 +98,10 @@ export function renderTaskList(tasks) {
       if (task) {
         task.status = status;
         render();
+        await updateTask(id,  task );
+  
       }
     });
   });
-
   render();
 }

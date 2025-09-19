@@ -51,6 +51,7 @@ export async function getTasks() {
  * });
  */
 export async function createTask(task) {
+  const token = localStorage.getItem("token");
   const res = await fetch(`${API}/tasks`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -58,5 +59,16 @@ export async function createTask(task) {
     body: JSON.stringify(task),
   });
   if (!res.ok) throw new Error("Error creating task");
+  return res.json();
+}
+
+export async function updateTask(id, updates) {
+  const res = await fetch(`${API}/tasks/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(updates),
+  });
+  if (!res.ok) throw new Error("Error updating task");
   return res.json();
 }

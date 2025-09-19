@@ -4,7 +4,10 @@ import { renderRegister } from "../components/register";
 import { renderLogin } from "../components/login";
 import { openModal, closeModal } from "../components/modal";
 import { setupTaskForm } from "../components/taskNew.js";
-import { getTasks } from "../api/tasks.js";
+import { createTask, getTasks, updateTask } from "../api/tasks.js";
+import { resetPassword } from "../api/users";
+import { initRestablePassword } from "../components/resetPasswordForm";
+import { showToast } from "../utils/toasts.js";
 
 const app = document.getElementById("app");
 
@@ -46,19 +49,19 @@ export const routes = {
     init: initBoard,
     layout: renderLayout,
   },
-  "login": {
+  login: {
     file: "login.html",
     init: renderLogin,
     layout: renderAuthLayout,
   },
-  "register": {
+  register: {
     file: "register.html",
     init: renderRegister,
     layout: renderAuthLayout,
   },
   "reset-password": {
     file: "reset-password.html",
-    init: null,
+    init: initRestablePassword,
     layout: renderAuthLayout,
   },
   taskNew: {
@@ -80,33 +83,53 @@ export const routes = {
  * @returns {Promise<void>}
  */
 
-async function openTaskNewModal() {
+export async function openTaskNewModal(task = null) {
   console.log("=== openTaskNewModal ejecutándose ===");
-  // 1) Traer el HTML del formulario existente
+
+  // 1) Traer el HTML del formulario
   const res = await fetch(new URL(`../views/taskNew.html`, import.meta.url));
   const html = await res.text();
 
   openModal(html);
 
+  // 2) Referencias al DOM después de inyectar el modal
+  const form = document.getElementById("task-form");
+  const cancelBtn = document.getElementById("cancel-btn");
+  const titleH2 = document.getElementById("title_h2");
+  const buttonTask = document.getElementById("button_task");
+
+  // 3) Configurar fecha mínima
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("date")?.setAttribute("min", today);
 
-  // Cancel button handler
-  const cancelBtn = document.getElementById("cancel-btn");
-  console.log("Botón cancelar encontrado:", cancelBtn);
+  // 4) Si hay tarea → edición
+  if (task) {
+    console.log("Modo edición con tarea:", task);
 
+    // Cambiar textos
+    titleH2.textContent = "Editar Tarea";
+    buttonTask.textContent = "Actualizar Tarea";
+
+    // Rellenar datos
+    form.querySelector("#title").value = task.title;
+    form.querySelector("#detail").value = task.detail || "";
+    const dueDate = new Date(task.dueDate);
+    form.querySelector("#date").value = dueDate.toISOString().split("T")[0];
+    form.querySelector("#time").value = dueDate.toTimeString().slice(0, 5);
+    form.querySelector("#status").value = task.status;
+  } else {
+    // Modo crear
+    titleH2.textContent = "Crear Nueva Tarea";
+    buttonTask.textContent = "Crear Tarea";
+  }
+
+  // 5) Cancelar
   if (cancelBtn) {
     cancelBtn.addEventListener("click", (e) => {
       e.preventDefault();
       closeModal();
     });
-  } else {
-    console.error("Botón cancel-btn no encontrado");
   }
-
-  const form = document.getElementById("task-form");
-  const { createTask } = await import("../api/tasks.js");
-  const { showToast } = await import("../utils/toasts.js");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -119,22 +142,25 @@ async function openTaskNewModal() {
       status: fd.get("status"),
       dueDate: new Date(`${fd.get("date")}T${fd.get("time")}`),
     };
+
     try {
-      await createTask(taskData);
-      showToast("Tarea creada exitosamente", "success");
+      if (task) {
+        // 👉 Edición
+        await updateTask(task.id, taskData);
+        showToast("Tarea actualizada exitosamente", "success");
+      } else {
+        // 👉 Creación
+        await createTask(taskData);
+        showToast("Tarea creada exitosamente", "success");
+      }
+
       initBoard();
       closeModal();
     } catch {
-      showToast("Error al crear la tarea", "error");
+      showToast("Error al guardar la tarea", "error");
     }
   });
-
-  cancelBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    closeModal();
-  });
 }
-
 /**
  * Load a given view into the #app container.
  *
@@ -160,7 +186,6 @@ export async function loadView(name) {
 
     // Render with layout
     app.innerHTML = route.layout ? route.layout(html) : html;
-    
 
     // Run initializer
     if (typeof route.init === "function") {
@@ -185,10 +210,9 @@ function initHome() {
 }
 
 export async function initBoard() {
-  const tasks = await getTasks()
+  const tasks = await getTasks();
 
   renderTaskList(tasks);
-  console.log("Board view initialized");
 
   // Button inside the task list view
   const btn = document.getElementById("btn-new-task");
@@ -225,12 +249,16 @@ export function initRouter() {
  * @private
  */
 function handleRoute() {
-  const path =
-    (location.hash.startsWith("#/") ? location.hash.slice(2) : "") || "login";
+  const token = localStorage.getItem("token"); // token
+
+  const hash = location.hash.startsWith("#/") ? location.hash.slice(2) : "";
+  const [routePath] = hash.split("?"); // 👈 separa ruta y query
+  const path = routePath || "login";
   console.log(`Routing to: ${path}`);
 
   // Ya no verificamos localStorage, porque usamos cookies
   const route = routes[path] ? path : "login";
+  console.log("route", route);
 
   loadView(route).catch((err) => {
     console.error(err);
