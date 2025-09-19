@@ -8,7 +8,7 @@ import { loginUser } from "../api/users";
  *  - Prevents the default browser behavior.
  *  - Retrieves the email and password values from the input fields.
  *  - Calls loginUser to authenticate the user.
- *  - Displays a success or error message inside the element with id msg.
+ *  - Displays a success or error message using showToast.
  *  - Redirects to the task list view (#/taskList) if login is successful.
  *
  * @function
@@ -24,29 +24,113 @@ import { loginUser } from "../api/users";
  *   <input id="password" type="password" required />
  *   <button type="submit">Login</button>
  * </form>
- * <p id="msg"></p>
  *
  * // JS:
  * renderLogin();
+
+/**
+ * Renders and manages the login form with real-time validation.
  */
 export function renderLogin() {
+  // Regex para validación RFC 5322
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const submitBtn = document.getElementById("loginBtn");
+  const emailError = document.getElementById("emailError");
+  const passwordError = document.getElementById("passwordError");
+
+  // Función de validación en tiempo real
+  function validateForm() {
+    let valid = true;
+
+    // Validar email
+    if (!emailRegex.test(emailInput.value)) {
+      emailError.textContent = "El correo no tiene un formato válido.";
+      valid = false;
+    } else {
+      emailError.textContent = "";
+    }
+
+    // Validar password
+    if (!passwordInput.value.trim()) {
+      passwordError.textContent = "La contraseña es obligatoria.";
+      valid = false;
+    } else {
+      passwordError.textContent = "";
+    }
+
+    // Habilitar/deshabilitar botón
+    submitBtn.disabled = !valid;
+  }
+
+  // Event listeners para validación en tiempo real
+  emailInput.addEventListener("input", validateForm);
+  emailInput.addEventListener("blur", validateForm);
+  passwordInput.addEventListener("input", validateForm);
+  passwordInput.addEventListener("blur", validateForm);
+
+  // Validación inicial
+  validateForm();
+
+  // Event listener para el formulario
   document
     .getElementById("loginForm")
     .addEventListener("submit", async function (e) {
       e.preventDefault();
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const msg = document.getElementById("msg");
+      // Validar una vez más antes de enviar
+      validateForm();
+      if (submitBtn.disabled) return;
+
+      // Mostrar spinner
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span> Procesando...';
+
+      // Limpiar mensajes de error anteriores
+      document.getElementById("msg").textContent = "";
+      document.getElementById("msg").className = "form-feedback";
 
       try {
-        const data = await loginUser({ email, password });
-        msg.textContent = "Login exitoso ";
+        const email = emailInput.value;
+        const password = passwordInput.value;
 
-        // Redirect after login
-        window.location.href = "#/taskList";
+        const data = await loginUser({ email, password });
+
+        // Almacenar token de forma segura
+        if (data.token) {
+          // Usar localStorage seguro (en producción usar HttpOnly cookies)
+          localStorage.setItem("authToken", data.token);
+          localStorage.setItem("userName", data.user?.name || "Usuario");
+        }
+
+        // Mostrar mensaje de éxito
+        document.getElementById("msg").textContent = "Login exitoso";
+        document.getElementById("msg").className = "form-feedback is-success";
+
+        // Redirigir después de un breve delay
+        console.log("cargar lista de tareas");
+
+        setTimeout(() => {
+          window.location.href = "#/taskList";
+        }, 500);
       } catch (error) {
-        msg.textContent = error.message;
+        const serverMsg = error?.message || "";
+        const friendly = /invalid|incorrect|not found|unauthorized/i.test(
+          serverMsg
+        )
+          ? "Correo o contraseña incorrectos"
+          : "No pudimos iniciar sesión. Intenta nuevamente.";
+
+        document.getElementById("msg").textContent = friendly;
+        document.getElementById("msg").className = "form-feedback is-error";
+      } finally {
+        // Restaurar botón
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
       }
     });
 }

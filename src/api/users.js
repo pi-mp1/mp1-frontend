@@ -75,11 +75,12 @@ export async function registerUser(user) {
  * }
  */
 export async function loginUser(credentials) {
+  console.log("Logging in with credentials:", credentials);
   const res = await fetch(`${API}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
-    credentials: "include", // MUY IMPORTANTE
+    credentials: "include", // Include cookies for session management
   });
 
   if (!res.ok) {
@@ -103,5 +104,13 @@ export async function resetPasswordWithToken(token, newPassword) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({password: newPassword }),
+  });
+}
+
+export async function session(){
+    return await fetch(`${API}/session`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include"
   });
 }

@@ -37,4 +37,57 @@ export const Icons = {
                1H5v2h14V4z"/>
     </svg>
   `,
+
+  logout: `<svg fill="none" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>`,
+
+home: `
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 24 24" 
+       width="18" height="18" fill="currentColor">
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1V9.5z"/>
+  </svg>
+`,
+
+tasks: `
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       viewBox="0 0 24 24" 
+       width="18" height="18" fill="none" stroke="currentColor" 
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 11l3 3L22 4"/>
+    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+  </svg>
+`,
+
+newTask: `
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       viewBox="0 0 24 24"
+       width="18" height="18" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 5v14M5 12h14"/>
+  </svg>
+`,
+
+profile: `
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       viewBox="0 0 24 24" 
+       width="18" height="18" fill="currentColor">
+    <circle cx="12" cy="7" r="4"/>
+    <path d="M5.5 21a7.5 7.5 0 0 1 13 0"/>
+  </svg>
+`,
+
+
+logout: `
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       viewBox="0 0 24 24" 
+       width="18" height="18" fill="none" 
+       stroke="currentColor" stroke-width="2" 
+       stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 21H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+    <polyline points="17 16 21 12 17 8"/>
+    <line x1="21" y1="12" x2="9" y2="12"/>
+  </svg>
+`,
+
+
 };

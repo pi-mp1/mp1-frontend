@@ -33,7 +33,7 @@ export function showToast(message, type = 'info') {
     // Basic styles
     toast.style.cssText = `
       position: fixed;
-      top: 20px;
+      bottom: 20px;
       right: 20px;
       padding: 12px 20px;
       border-radius: 8px;

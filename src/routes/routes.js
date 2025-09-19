@@ -8,6 +8,8 @@ import { createTask, getTasks, updateTask } from "../api/tasks.js";
 import { resetPassword } from "../api/users";
 import { initRestablePassword } from "../components/resetPasswordForm";
 import { showToast } from "../utils/toasts.js";
+import { checkAuth, requireAuth } from "../utils/auth.js";
+import { layoutsActions } from "../components/layoutsActions";
 
 const app = document.getElementById("app");
 
@@ -107,7 +109,7 @@ export async function openTaskNewModal(task = null) {
     console.log("Modo edición con tarea:", task);
 
     // Cambiar textos
-    titleH2.textContent = "Editar Tarea";
+    titleH2.textContent = "Actualizar Tarea";
     buttonTask.textContent = "Actualizar Tarea";
 
     // Rellenar datos
@@ -185,10 +187,13 @@ export async function loadView(name) {
     const html = await res.text();
 
     // Render with layout
-    app.innerHTML = route.layout ? route.layout(html) : html;
+    app.innerHTML = route.layout ? await route.layout(html) : html;
 
     // Run initializer
     if (typeof route.init === "function") {
+      layoutsActions()
+
+
       route.init();
     }
   } catch (err) {
@@ -205,30 +210,21 @@ export async function loadView(name) {
  */
 
 function initHome() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+
   console.log("Home view initialized");
   // lógica específica para la vista de inicio
 }
 
 export async function initBoard() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+
   const tasks = await getTasks();
 
   renderTaskList(tasks);
 
-  // Button inside the task list view
-  const btn = document.getElementById("btn-new-task");
-  if (btn)
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      openTaskNewModal();
-    });
-
-  // Header link "+ New Task"
-  const headerBtn = document.querySelector("a.btn-new-task");
-  if (headerBtn)
-    headerBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      openTaskNewModal();
-    });
 }
 
 /**
@@ -249,16 +245,14 @@ export function initRouter() {
  * @private
  */
 function handleRoute() {
-  const token = localStorage.getItem("token"); // token
+  const isAuthenticated = checkAuth();
 
   const hash = location.hash.startsWith("#/") ? location.hash.slice(2) : "";
   const [routePath] = hash.split("?"); // 👈 separa ruta y query
   const path = routePath || "login";
-  console.log(`Routing to: ${path}`);
 
   // Ya no verificamos localStorage, porque usamos cookies
   const route = routes[path] ? path : "login";
-  console.log("route", route);
 
   loadView(route).catch((err) => {
     console.error(err);
@@ -270,5 +264,8 @@ function handleRoute() {
  * Initialize the "New Task" view directly (non-modal).
  */
 function initTaskNew() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
   setupTaskForm();
 }
