@@ -63,8 +63,8 @@ export function initRestablePassword() {
           showToast("Por favor, ingresa un correo electrónico válido.", "error");
           return;
         }
-        await resetPassword(email);
         showToast("Email de cambio de contraseña enviado exitosamente", "success");
+        await resetPassword(email);
         window.location.href = "#/login";
       });
   }
