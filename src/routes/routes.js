@@ -205,6 +205,9 @@ export async function loadView(name) {
  */
 
 function initHome() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
   console.log("Home view initialized");
   // lógica específica para la vista de inicio
 }
@@ -249,7 +252,7 @@ export function initRouter() {
  * @private
  */
 function handleRoute() {
-  const token = localStorage.getItem("token"); // token
+  const isAuthenticated = checkAuth();
 
   const hash = location.hash.startsWith("#/") ? location.hash.slice(2) : "";
   const [routePath] = hash.split("?"); // 👈 separa ruta y query
@@ -270,5 +273,8 @@ function handleRoute() {
  * Initialize the "New Task" view directly (non-modal).
  */
 function initTaskNew() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
   setupTaskForm();
 }
