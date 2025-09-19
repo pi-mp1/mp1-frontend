@@ -33,6 +33,7 @@ export function renderLayout(innerHtml) {
         </div>
         <nav>
           <a href="#/home">Inicio</a>
+          <a href="#/about">Sobre Nosotros</a>
           <a href="#/taskList">Tareas</a>
           <a href="#/taskNew" class="btn-new-task">+ Nueva Tarea</a>
           <!-- Icono Logout con SVG -->

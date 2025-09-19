@@ -1,4 +1,5 @@
 import { renderLayout, renderAuthLayout } from "../layouts";
+import { renderAboutLayout } from "../layouts/about";
 import { renderTaskList } from "../components/taskList";
 import { renderRegister } from "../components/register";
 import { renderLogin } from "../components/login";
@@ -45,6 +46,11 @@ export const routes = {
     file: "home.html",
     init: initHome,
     layout: renderLayout,
+  },
+  about: {
+    file: "about.html",
+    init: initAbout,
+    layout: renderAboutLayout,
   },
   taskList: {
     file: "taskList.html",
@@ -191,7 +197,11 @@ export async function loadView(name) {
 
     // Run initializer
     if (typeof route.init === "function") {
-      route.init();
+      try {
+        route.init();
+      } catch (error) {
+        console.error(`Error initializing route ${name}:`, error);
+      }
     }
   } catch (err) {
     console.error(err);
@@ -209,9 +219,23 @@ export async function loadView(name) {
 function initHome() {
   // Verificar autenticación antes de cargar
   if (!requireAuth()) return;
-  
+
   console.log("Home view initialized");
   // lógica específica para la vista de inicio
+}
+
+/**
+ * Initialize the about page.
+ */
+export function initAbout() {
+  // Verificar autenticación antes de cargar
+  // if (!requireAuth()) {
+  //   console.log("User not authenticated, redirecting to login");
+  //   return;
+  // }
+  
+  console.log("About page initialized");
+  // lógica específica para la página "Sobre nosotros"
 }
 
 export async function initBoard() {
@@ -263,7 +287,9 @@ function handleRoute() {
 
   // Ya no verificamos localStorage, porque usamos cookies
   const route = routes[path] ? path : "login";
-  console.log("route", route);
+  console.log("Available routes:", Object.keys(routes));
+  console.log("Requested path:", path);
+  console.log("Selected route:", route);
 
   loadView(route).catch((err) => {
     console.error(err);

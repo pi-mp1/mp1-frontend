@@ -1,4 +1,6 @@
 @import './styles/register.css';
+@import './styles/about.css';
+@import './styles/about-layout.css';
 
 :root {
   --breakpoint-sm: 320px;
