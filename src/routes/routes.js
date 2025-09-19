@@ -8,6 +8,8 @@ import { createTask, getTasks, updateTask } from "../api/tasks.js";
 import { resetPassword } from "../api/users";
 import { initRestablePassword } from "../components/resetPasswordForm";
 import { showToast } from "../utils/toasts.js";
+import { getTasks } from "../api/tasks.js";
+import { checkAuth, requireAuth } from "../utils/auth.js";
 
 const app = document.getElementById("app");
 
@@ -205,12 +207,18 @@ export async function loadView(name) {
  */
 
 function initHome() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
   console.log("Home view initialized");
   // lógica específica para la vista de inicio
 }
 
 export async function initBoard() {
-  const tasks = await getTasks();
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
+  const tasks = await getTasks()
 
   renderTaskList(tasks);
 
@@ -249,7 +257,7 @@ export function initRouter() {
  * @private
  */
 function handleRoute() {
-  const token = localStorage.getItem("token"); // token
+  const isAuthenticated = checkAuth();
 
   const hash = location.hash.startsWith("#/") ? location.hash.slice(2) : "";
   const [routePath] = hash.split("?"); // 👈 separa ruta y query
@@ -270,5 +278,8 @@ function handleRoute() {
  * Initialize the "New Task" view directly (non-modal).
  */
 function initTaskNew() {
+  // Verificar autenticación antes de cargar
+  if (!requireAuth()) return;
+  
   setupTaskForm();
 }
