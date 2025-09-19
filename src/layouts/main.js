@@ -38,7 +38,7 @@ export async function renderLayout(innerHtml) {
       <header class="navbar">
         <div>
           <a href="#/home">
-            <img src="logo.jpg" alt="Logo" height="40" />
+            <img src="logo.jpg" alt="Logo" height="50" />
           </a>
         </div>
         <nav>

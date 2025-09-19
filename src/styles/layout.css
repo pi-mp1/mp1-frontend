@@ -8,7 +8,8 @@
 
 /* Header */
 header.navbar {
-  padding: 1rem;
+  padding-block: 0.6rem;
+  padding-inline: 2.4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,7 +42,7 @@ header nav a.logout-icon {
 }
 
 header nav a:hover {
-  background-color: #63c895a0;
+  background-color: #2564ebf0;
   border-radius: 6px;
   color: white;
   stroke: white;
