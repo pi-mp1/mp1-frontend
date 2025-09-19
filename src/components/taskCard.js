@@ -1,3 +1,4 @@
+import { openTaskNewModal } from "../routes/routes";
 import { Icons } from "../utils/icons";
 
 /**
@@ -42,10 +43,10 @@ export function TaskCard(task) {
   <div class="card-header">
     <h3>${task.title}</h3>
       <div class="card-actions">
-        <button class="icon-btn edit-btn" title="Editar">
+        <button class="icon-btn edit-btn" title="Editar" >
           ${Icons.edit}
         </button>
-        <button class="icon-btn delete-btn" title="Eliminar">
+        <button class="icon-btn delete-btn" title="Eliminar" >
           ${Icons.delete}
         </button>
       </div>
@@ -63,6 +64,14 @@ export function TaskCard(task) {
 
   // store the task ID in the dataset for reference
   card.dataset.id = task.id;
+  card.querySelector(".edit-btn").addEventListener("click", () => {
+    openTaskNewModal(task);
+  });
+
+  card.querySelector(".delete-btn").addEventListener("click", () => {
+    console.log("Eliminar tarea:", task._id);
+    // Aquí podrías llamar a deleteTask(task._id)
+  });
 
   return card;
 }
@@ -89,3 +98,5 @@ function formatStatus(status) {
       return status;
   }
 }
+
+

@@ -87,9 +87,22 @@ export async function loginUser(credentials) {
     const error = await res.json();
     throw new Error(error.message || "Error iniciando sesión");
   }
-  const data = await res.json();
-  // Store token in localStorage
-  //localStorage.setItem("token", data.token);
 
-  return data;
+  return res.json(); // no guardes nada en localStorage
+}
+
+export async function resetPassword(email) {
+  return await fetch(`${API}/forgot-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+}
+
+export async function resetPasswordWithToken(token, newPassword) {
+  return await fetch(`${API}/reset-password/${token}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({password: newPassword }),
+  });
 }
