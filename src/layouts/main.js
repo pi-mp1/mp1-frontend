@@ -44,7 +44,8 @@ export function renderLayout(innerHtml) {
           <a href="#/home">${Icons.home}Inicio</a>
           <a href="#/taskList">${Icons.tasks}Tareas</a>
           <a href="#/taskNew" class="btn-new-task">${Icons.newTask}Nueva Tarea</a>
-          <a href="" class="btn-new-task">${Icons.profile}Perfil</a>
+          <a href="#/profile">${Icons.profile}Perfil</a>
+          <a href="#/about">Sobre Nosotros</a>
           <a href="javascript:void(0)" 
             id="logout-btn" 
             class="logout-icon" 
