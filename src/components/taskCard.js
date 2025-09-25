@@ -1,5 +1,7 @@
-import { openTaskNewModal } from "../routes/routes";
+import { deleteTask } from "../api/tasks";
+import { initBoard, openTaskNewModal } from "../routes/routes";
 import { Icons } from "../utils/icons";
+import { showToast } from "../utils/toasts";
 
 /**
  * @typedef {Object} Task
@@ -12,17 +14,17 @@ import { Icons } from "../utils/icons";
 
 /**
  * Render a task card element for the UI.#
- * 
+ *
  * This function creates a draggable card that displays task information,
  * including title, details, due date, and status. It also injects edit
  * and delete buttons with their corresponding icons.
- * 
+ *
  * @function
  * @param {Task} task - The task object containing task data.
  * @returns {HTMLElement} The rendered task card element.
- * 
+ *
  * @example
- * 
+ *
  * const task = {
  *   id: "1",
  *   title: "Finish project",
@@ -30,7 +32,7 @@ import { Icons } from "../utils/icons";
  *   dueDate: "2025-09-15T10:00:00Z",
  *   status: "in-progress"
  * };
- * 
+ *
  * const card = TaskCard(task);
  * document.body.appendChild(card);
  */
@@ -68,9 +70,40 @@ export function TaskCard(task) {
     openTaskNewModal(task);
   });
 
-  card.querySelector(".delete-btn").addEventListener("click", () => {
-    console.log("Eliminar tarea:", task._id);
-    // Aquí podrías llamar a deleteTask(task._id)
+  const modal = document.getElementById("taskDeleteModal");
+  const cancelBtn = document.getElementById("cancelTaskDelete");
+  const confirmBtn = document.getElementById("confirmTaskDelete");
+
+  const deleteBtn = card.querySelector(".delete-btn");
+  deleteBtn.addEventListener("click", () => {
+    modal.classList.remove("hidden"); // Mostrar modal
+
+    // Resetear cualquier listener anterior
+    confirmBtn.replaceWith(confirmBtn.cloneNode(true));
+    cancelBtn.replaceWith(cancelBtn.cloneNode(true));
+
+    // Reasignar referencias
+    const newConfirm = document.getElementById("confirmTaskDelete");
+    const newCancel = document.getElementById("cancelTaskDelete");
+
+    // Cancelar
+    newCancel.addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
+
+    // Confirmar eliminación
+    newConfirm.addEventListener("click", async () => {
+      try {
+        await deleteTask(task.id);
+        card.remove();
+        showToast("Tarea eliminada correctamente", "success");
+      } catch (err) {
+        console.error(err);
+        showToast("Error al eliminar la tarea", "error");
+      } finally {
+        modal.classList.add("hidden");
+      }
+    });
   });
 
   return card;
@@ -78,10 +111,10 @@ export function TaskCard(task) {
 
 /**
  * Convert a status code into a human-readable string.
- * 
+ *
  * @param {"todo"|"in-progress"|"done"|string} status - Task status code.
  * @returns {string} A user-friendly label for the status.
- * 
+ *
  * @example
  * formatStatus("todo"); // "To do"
  */
@@ -98,5 +131,3 @@ function formatStatus(status) {
       return status;
   }
 }
-
-
