@@ -135,6 +135,29 @@ export async function updateProfile(updatedData) {
   }
 }
 
+export async function deleteUser(password) {
+    try {
+      const response = await fetch(`${API}/profile`, {
+      method: "DELETE", 
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({password}),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: No se pudo eliminar el perfil`);
+    }
+
+    // 🔹 Transformar la respuesta
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error("Error al eliminar el perfil:", error);
+    return null;
+  }
+}
+
 export async function resetPassword(email) {
   return await fetch(`${API}/forgot-password`, {
     method: "POST",

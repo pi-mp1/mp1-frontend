@@ -1,4 +1,4 @@
-import { getProfile, updateProfile } from "../api/users";
+import { deleteUser, getProfile, updateProfile } from "../api/users";
 import { showToast } from "../utils/toasts";
 
 export async function renderProfile() {
@@ -81,5 +81,44 @@ export async function renderProfile() {
     updateBtn.disabled = false;
     updateBtn.innerHTML = originalText;
 
+  });
+
+  const modalProfile = document.getElementById("modal-delete-profile");
+  const btnDeleteProfile = document.querySelector(".btn-logout");
+  const btnCancel = document.getElementById("cancel-delete");
+  const btnConfirm = document.getElementById("confirm-delete");
+  const inputPassword = document.getElementById("delete-password");
+
+  // Abrir modal
+  btnDeleteProfile.addEventListener("click", () => {
+    modalProfile.style.display = "flex";
+  });
+
+  // Cerrar modal
+  btnCancel.addEventListener("click", () => {
+    modalProfile.style.display = "none";
+    inputPassword.value = "";
+  });
+
+  // Confirmar eliminación
+  btnConfirm.addEventListener("click", async ()=> {
+    const password = inputPassword.value.trim();
+    if (!password) {
+      showToast("Por favor ingresa tu contraseña.","error")
+      return;
+    }
+    const msg = await deleteUser(password);
+
+    if (!msg) {
+      showToast("Contraseña incorrecta", "error");
+    } else {
+      showToast("Perfil eliminado con éxito", "success");
+      modalProfile.style.display = "none";
+      inputPassword.value = "";
+
+      setTimeout(() => {
+        window.location.href = "/#/login";
+      }, 1500);
+    }
   });
 }
