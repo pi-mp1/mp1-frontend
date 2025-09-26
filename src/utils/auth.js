@@ -14,6 +14,7 @@
  */
 
 import { session } from "../api/users";
+import { showToast } from "./toasts";
 
 export async function logout() {
   try {
@@ -21,10 +22,13 @@ export async function logout() {
       method: "POST",
       credentials: "include", // manda la cookie
     });
+    showToast("Sesion cerrada correctamente", "success");
+    
+    window.location.href = "#/";
   } catch (err) {
     console.error("Error al hacer logout:", err);
+    showToast("Error al hacer logout", "error");
   }
-  location.href = "/"; // redirigir después
 }
 
 /**

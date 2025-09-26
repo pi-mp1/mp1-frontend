@@ -5,6 +5,20 @@
   padding: 1rem;
 }
 
+main.main-content {
+  background-color: white;
+}
+
+.logo-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 26px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+
 h2.To.do {
   color: #3b82f6;
   /* Azul */

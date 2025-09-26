@@ -122,8 +122,7 @@ export function renderRegister() {
         window.location.href = "#/login";
 
       } catch (err) {
-        msg.style.color = "red";
-        msg.textContent = err.message || "Error en el registro";
+        showToast(err.message || "Error en el registro", "error");
         console.error(err);
       }
     });

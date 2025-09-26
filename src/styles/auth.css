@@ -107,6 +107,10 @@ div.logo img {
   width: 100%;
 }
 
+.mt-16 {
+  margin-top: 16px;
+}
+
 .btn:hover {
   background: #333;
 }

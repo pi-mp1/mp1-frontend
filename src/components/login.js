@@ -1,4 +1,5 @@
 import { loginUser } from "../api/users";
+import { showToast } from "../utils/toasts";
 
 /**
  * Renders and manages the login form.
@@ -95,20 +96,18 @@ export function renderLogin() {
         const password = passwordInput.value;
 
         const data = await loginUser({ email, password });
+        showToast("Inicio de sesión exitoso", "success");
 
+        console.log(data);
         // Almacenar token de forma segura
-        if (data.token) {
+        if (data.userId) {
           // Usar localStorage seguro (en producción usar HttpOnly cookies)
           localStorage.setItem("authToken", data.token);
           localStorage.setItem("userName", data.user?.name || "Usuario");
         }
 
-        // Redirigir después de un breve delay
-        console.log("cargar lista de tareas");
+        window.location.href = "#/taskList";
 
-        setTimeout(() => {
-          window.location.href = "#/taskList";
-        }, 500);
       } catch (error) {
         const serverMsg = error?.message || "";
         const friendly = /invalid|incorrect|not found|unauthorized/i.test(
@@ -116,7 +115,7 @@ export function renderLogin() {
         )
           ? "Correo o contraseña incorrectos"
           : "No pudimos iniciar sesión. Intenta nuevamente.";
-
+        showToast(friendly, "error");
       } finally {
         // Restaurar botón
         submitBtn.disabled = false;

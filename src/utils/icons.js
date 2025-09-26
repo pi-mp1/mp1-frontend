@@ -69,11 +69,13 @@ export const Icons = {
 
   profile: `
   <svg xmlns="http://www.w3.org/2000/svg" 
-       viewBox="0 0 24 24" 
-       width="18" height="18" fill="currentColor">
-    <circle cx="12" cy="7" r="4"/>
-    <path d="M5.5 21a7.5 7.5 0 0 1 13 0"/>
-  </svg>
+     viewBox="0 0 24 24" 
+     width="24" height="24" 
+     fill="currentColor">
+  <circle cx="12" cy="8" r="4"/>
+  <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+</svg>
+
 `,
 
 
