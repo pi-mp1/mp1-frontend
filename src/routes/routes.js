@@ -109,7 +109,7 @@ export async function openTaskNewModal(task = null) {
   const form = document.getElementById("task-form");
   const cancelBtn = document.getElementById("cancel-btn");
   const titleH2 = document.getElementById("title_h2");
-  const buttonTask = document.getElementById("button_task");
+  const buttonTask = document.getElementById("button-task");
 
   // 3) Configurar fecha mínima
   const today = new Date().toISOString().split("T")[0];

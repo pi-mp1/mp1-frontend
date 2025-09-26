@@ -57,6 +57,7 @@ export function setupTaskForm() {
   const titleCount = document.getElementById("title-count");
   const detailCount = document.getElementById("detail-count");
   const cancelBtn = document.getElementById("cancel-btn");
+  const buttonTask = document.getElementById("button-task");
   const taskModal = document.getElementById("modal-task");
 
   // title validation real time
@@ -85,6 +86,10 @@ export function setupTaskForm() {
       dueDate: new Date(`${formData.get("date")}T${formData.get("time")}`),
     };
 
+    const originalText = buttonTask.textContent;
+    buttonTask.disabled = true;
+    buttonTask.innerHTML = `<span class="spinner"></span> ${originalText === "Crear Tarea" ? "Creando..." : "Actualizando..."}`;
+
     try {
       await createTask(taskData);
       console.log("Refrescando el tablero...");
@@ -94,6 +99,9 @@ export function setupTaskForm() {
 
     } catch (error) {
       showToast("Error al crear la tarea", "error");
+    } finally {
+      buttonTask.disabled = false;
+      buttonTask.innerHTML = originalText;
     }
   });
 
