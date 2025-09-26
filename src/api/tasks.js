@@ -72,12 +72,21 @@ export async function updateTask(id, updates) {
   return res.json();
 }
 
-export async function  deleteTask(id){
+export async function deleteTask(id){
   const res = await fetch(`${API}/tasks/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
   });
   if (!res.ok) throw new Error("Error delete task");
+  return res.json();
+}
+
+export async function taskStatistics(){
+  const res = await fetch(`${API}/tasks/stats`, {
+    method: "GET",
+    credentials: "include",
+  });
+  if (!res.ok) throw new Error("Error fetching task statistics");
   return res.json();
 }

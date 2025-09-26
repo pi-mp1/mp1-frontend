@@ -11,6 +11,7 @@ import { showToast } from "../utils/toasts.js";
 import { checkAuth, requireAuth } from "../utils/auth.js";
 import { layoutsActions } from "../components/layoutsActions";
 import { renderProfile } from "../components/profile";
+import { initHome } from "../components/home";
 
 const app = document.getElementById("app");
 
@@ -72,11 +73,6 @@ export const routes = {
     init: initRestablePassword,
     layout: renderAuthLayout,
   },
-  taskNew: {
-    file: "taskNew.html",
-    init: initTaskNew,
-    layout: renderLayout,
-  },
   profile:{
     file: "profile.html",
     init: renderProfile,
@@ -97,8 +93,6 @@ export const routes = {
  */
 
 export async function openTaskNewModal(task = null) {
-  console.log("=== openTaskNewModal ejecutándose ===");
-
   // 1) Traer el HTML del formulario
   const res = await fetch(new URL(`../views/taskNew.html`, import.meta.url));
   const html = await res.text();
@@ -117,8 +111,6 @@ export async function openTaskNewModal(task = null) {
 
   // 4) Si hay tarea → edición
   if (task) {
-    console.log("Modo edición con tarea:", task);
-
     // Cambiar textos
     titleH2.textContent = "Actualizar Tarea";
     buttonTask.textContent = "Actualizar Tarea";
@@ -157,6 +149,9 @@ export async function openTaskNewModal(task = null) {
     };
 
     try {
+      const buttonTaskText = buttonTask.textContent;
+      buttonTask.disabled = true;
+      buttonTask.innerHTML = `<span class="spinner"></span> ${buttonTaskText === "Crear Tarea" ? "Creando..." : "Actualizando..."}`;
       if (task) {
         // 👉 Edición
         await updateTask(task.id, taskData);
@@ -166,6 +161,8 @@ export async function openTaskNewModal(task = null) {
         await createTask(taskData);
         showToast("Tarea creada exitosamente", "success");
       }
+      buttonTask.disabled = false;
+      buttonTask.innerHTML = buttonTaskText;
 
       initBoard();
       closeModal();
@@ -218,22 +215,6 @@ export async function loadView(name) {
   }
 }
 
-/**
- * Initialize the home view.
- * (Currently placeholder logic.)
- */
-
-function initHome() {
-  // Verificar autenticación antes de cargar
-  if (!requireAuth()) return;
-
-  console.log("Home view initialized");
-  // lógica específica para la vista de inicio
-}
-
-/**
- * Initialize the about page.
- */
 export function initAbout() {
   // Verificar autenticación antes de cargar
   // if (!requireAuth()) {
@@ -283,14 +264,4 @@ function handleRoute() {
     console.error(err);
     app.innerHTML = `<p style="color:#ffb4b4">Error loading the view.</p>`;
   });
-}
-
-/**
- * Initialize the "New Task" view directly (non-modal).
- */
-function initTaskNew() {
-  // Verificar autenticación antes de cargar
-  if (!requireAuth()) return;
-  
-  setupTaskForm();
 }
