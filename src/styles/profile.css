@@ -60,25 +60,26 @@
 
 .profile-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+  gap: 10px;
 }
 
 .btn-edit {
-  background: #4a90e2;
+  background: var(--blue);
   color: white;
 }
 
 .btn-edit:hover {
-  background: #3b77c0;
+  background: var(--blue-hover);
 }
 
 .btn-logout {
-  background: #ff5c5c;
+  background: var(--red);
   color: white;
 }
 
 .btn-logout:hover {
-  background: #d94c4c;
+  background: var(--red-hover);
 }
 .profile-modal {
   position: fixed;

@@ -10,14 +10,11 @@ div.task-loader {
     background-color: #f0f0f0;
 }
 
-
-
-
 .btn-new-task {
   display: inline-block;
   padding: 0.6rem 1.2rem;
   margin-left: 16px;
-  background: #10b981; /* azul llamativo */
+  background: var(--blue); /* azul llamativo */
   color: white;
   font-weight: bold;
   border-radius: 8px;
@@ -26,6 +23,6 @@ div.task-loader {
 }
 
 .btn-new-task:hover {
-  background: #0d9266; /* azul más fuerte */
+  background: var(--blue-hover);
   transform: translateY(-2px);
 }

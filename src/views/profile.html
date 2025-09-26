@@ -2,20 +2,20 @@
   <div class="profile-card">
     <div class="profile-header">
       <img src="/profile.png" alt="Foto de perfil" class="profile-avatar" />
-      <h2 class="profile-name" id="name"></h2>
-      <p class="profile-email" id="email"></p>
+      <h2 class="profile-name" id="name">{name}</h2>
+      <p class="profile-email" id="email">{email}</p>
     </div>
 
     <div class="profile-body">
       <div class="profile-info">
         <h3>Información personal</h3>
-        <p><strong>Edad:</strong> <span id="age"></span></p>
-        <p><strong>Fecha de creacion:</strong><span id="create"></span></p>
+        <p><strong>Edad:</strong> <span id="age">{age}</span></p>
+        <p><strong>Fecha de creacion:</strong> <span id="create">{create}</span></p>
       </div>
 
       <div class="profile-actions">
         <button class="btn btn-edit">Editar perfil</button>
-        <button class="btn btn-logout">Cerrar sesión</button>
+        <button class="btn btn-logout">Eliminar perfil</button>
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@
       <label for="lastName">Apellido:</label>
       <input type="text" id="lastName" name="lastName" required />
 
-      <label for="email">email:</label>
+      <label for="email">Email:</label>
       <input type="text" id="emailEdit" name="email" required />
 
       <label for="age">Edad:</label>

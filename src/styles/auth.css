@@ -135,7 +135,7 @@ div.logo img {
 }
 
 .link-text a {
-  color: #1d4ed8;
+  color: var(--blue);
   text-decoration: none;
   text-underline-offset: 2px;
   font-weight: bold;
