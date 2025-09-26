@@ -12,6 +12,7 @@ import { checkAuth, requireAuth } from "../utils/auth.js";
 import { layoutsActions } from "../components/layoutsActions";
 import { renderProfile } from "../components/profile";
 import { initHome } from "../components/home";
+import { renderSitemap } from "../components/sitemap";
 
 const app = document.getElementById("app");
 
@@ -73,11 +74,16 @@ export const routes = {
     init: initRestablePassword,
     layout: renderAuthLayout,
   },
-  profile:{
+  profile: {
     file: "profile.html",
     init: renderProfile,
     layout: renderLayout,
-  }
+  },
+  sitemap: {
+    file: "sitemap.html",
+    init: renderSitemap,
+    layout: renderLayout,
+  },
 };
 
 /**
@@ -221,7 +227,7 @@ export function initAbout() {
   //   console.log("User not authenticated, redirecting to login");
   //   return;
   // }
-  
+
   console.log("About page initialized");
   // lógica específica para la página "Sobre nosotros"
 }

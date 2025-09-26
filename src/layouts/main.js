@@ -63,6 +63,7 @@ export function renderLayout(innerHtml) {
 
       <footer>
         © 2025 - Todos los derechos reservados
+        <a href="#/sitemap">Mapa del sitio</a>
       </footer>
     </div>
   `;
