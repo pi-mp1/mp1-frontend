@@ -94,9 +94,14 @@ export function TaskCard(task) {
     // Confirmar eliminación
     newConfirm.addEventListener("click", async () => {
       try {
+        const originalText = newConfirm.textContent;
+        newConfirm.disabled = true;
+        newConfirm.innerHTML = `<span class="spinner"></span> Eliminando...`;
         await deleteTask(task.id);
         card.remove();
         showToast("Tarea eliminada correctamente", "success");
+        newConfirm.disabled = false;
+        newConfirm.innerHTML = originalText;
       } catch (err) {
         console.error(err);
         showToast("Error al eliminar la tarea", "error");

@@ -17,6 +17,10 @@ header {
   align-items: center;
 }
 
+header.header {
+  padding-inline: 2rem;
+}
+
 header h1 {
   margin: 0;
   font-size: 1.5rem;

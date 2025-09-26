@@ -4,23 +4,24 @@ import { showToast } from "../utils/toasts";
 export async function renderProfile() {
   try {
     const profile = await getProfile();
-    console.log(profile);
     
     if (profile) {
+      document.getElementById("profile-loader").classList.add("hidden");
+      document.getElementById("profile-info").classList.remove("hidden");
       // Nombre completo
       document.getElementById(
-        "name"
+        "profile-name"
       ).textContent = `${profile.firstName} ${profile.lastName}`;
 
       // Email
-      document.getElementById("email").textContent = profile.email;
+      document.getElementById("profile-email").textContent = profile.email;
 
       // Edad
-      document.getElementById("age").textContent = profile.age;
+      document.getElementById("profile-age").textContent = profile.age;
 
       // Fecha de creación (formateada)
       const fecha = new Date(profile.createdAt);
-      document.getElementById("create").textContent = fecha.toLocaleDateString(
+      document.getElementById("profile-create").textContent = fecha.toLocaleDateString(
         "es-CO",
         {
           year: "numeric",
@@ -37,7 +38,7 @@ export async function renderProfile() {
   const modal = document.getElementById("profileEditModal");
   const closeBtn = document.getElementById("closeModal");
   const editForm = document.getElementById("editProfileForm");
-
+  const updateBtn = document.getElementById("update-profile-btn");
 
   // Abrir modal con datos actuales
   editBtn.addEventListener("click", async () => {
@@ -66,13 +67,19 @@ export async function renderProfile() {
       age: parseInt(document.getElementById("ageInput").value, 10),
       email:document.getElementById("emailEdit").value,
     };
+    
 
+    const originalText = updateBtn.textContent;
+    updateBtn.disabled = true;
+    updateBtn.innerHTML = '<span class="spinner"></span> Guardando...';
+    
     const result = await updateProfile(updatedProfile);
     showToast("Perfil editado exitosamente", "success")
     console.log(result);
     await renderProfile()
     modal.classList.add("hidden");
-
+    updateBtn.disabled = false;
+    updateBtn.innerHTML = originalText;
 
   });
 }

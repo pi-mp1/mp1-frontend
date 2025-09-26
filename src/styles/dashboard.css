@@ -367,6 +367,8 @@ h2.completed {
   cursor: pointer;
   font-weight: bold;
   border: none;
+  display: flex;
+  align-items: center;
   transition: background 0.2s ease-in-out;
 }
 
@@ -380,10 +382,10 @@ h2.completed {
 }
 
 .task-btn-danger {
-  background: #e53935;
+  background: var(--red);
   color: white;
 }
 
 .task-btn-danger:hover {
-  background: #c62828;
+  background: var(--red-hover);
 }

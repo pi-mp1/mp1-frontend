@@ -46,6 +46,22 @@
   margin-bottom: 20px;
 }
 
+.profile-info.hidden {
+  display: none;
+  margin: 0;
+}
+
+.spinner.lg {
+  width: 70px;
+  height: 70px;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.spinner.hidden {
+  display: none;
+}
+
 .profile-info h3 {
   margin-bottom: 10px;
   font-size: 1.1rem;
@@ -155,12 +171,12 @@
 }
 
 .profile-modal-content input:focus {
-  border-color: #007bff;
+  border-color: var(--blue-hover);
   box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
 }
 
 .btn-save {
-  background: #007bff;
+  background: var(--blue);
   color: white;
   padding: 0.8rem;
   border: none;
@@ -172,7 +188,7 @@
 }
 
 .btn-save:hover {
-  background: #0056b3;
+  background: var(--blue-hover);
 }
 
 .profile-modal-close {
