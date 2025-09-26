@@ -75,7 +75,6 @@ export async function registerUser(user) {
  * }
  */
 export async function loginUser(credentials) {
-  console.log("Logging in with credentials:", credentials);
   const res = await fetch(`${API}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -89,6 +88,51 @@ export async function loginUser(credentials) {
   }
 
   return res.json(); // no guardes nada en localStorage
+}
+
+export async function getProfile() {
+  try {
+    const response = await fetch(`${API}/profile`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: No se pudo obtener el perfil`);
+    }
+
+    // 🔹 Transformar la respuesta
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error("Error al obtener el perfil:", error);
+    return null; // o puedes lanzar el error según tu necesidad
+  }
+}
+
+export async function updateProfile(updatedData) {
+  try {
+    const response = await fetch(`${API}/profile`, {
+      method: "PUT", // o "PATCH" si tu backend solo actualiza campos específicos
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", // para que mande la cookie de sesión
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: No se pudo actualizar el perfil`);
+    }
+
+    // 🔹 Transformar la respuesta
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error("Error al actualizar el perfil:", error);
+    return null;
+  }
 }
 
 export async function resetPassword(email) {

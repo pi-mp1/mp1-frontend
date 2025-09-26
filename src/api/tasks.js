@@ -71,3 +71,13 @@ export async function updateTask(id, updates) {
   if (!res.ok) throw new Error("Error updating task");
   return res.json();
 }
+
+export async function  deleteTask(id){
+  const res = await fetch(`${API}/tasks/${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+  });
+  if (!res.ok) throw new Error("Error delete task");
+  return res.json();
+}

@@ -12,3 +12,20 @@ div.task-loader {
 
 
 
+
+.btn-new-task {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  margin-left: 16px;
+  background: #10b981; /* azul llamativo */
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-new-task:hover {
+  background: #0d9266; /* azul más fuerte */
+  transform: translateY(-2px);
+}

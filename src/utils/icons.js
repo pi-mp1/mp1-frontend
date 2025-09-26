@@ -40,7 +40,7 @@ export const Icons = {
 
   logout: `<svg fill="none" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>`,
 
-home: `
+  home: `
   <svg xmlns="http://www.w3.org/2000/svg"
        viewBox="0 0 24 24" 
        width="18" height="18" fill="currentColor">
@@ -48,7 +48,7 @@ home: `
   </svg>
 `,
 
-tasks: `
+  tasks: `
   <svg xmlns="http://www.w3.org/2000/svg" 
        viewBox="0 0 24 24" 
        width="18" height="18" fill="none" stroke="currentColor" 
@@ -58,7 +58,7 @@ tasks: `
   </svg>
 `,
 
-newTask: `
+  newTask: `
   <svg xmlns="http://www.w3.org/2000/svg" 
        viewBox="0 0 24 24"
        width="18" height="18" fill="none" stroke="currentColor"
@@ -67,7 +67,7 @@ newTask: `
   </svg>
 `,
 
-profile: `
+  profile: `
   <svg xmlns="http://www.w3.org/2000/svg" 
        viewBox="0 0 24 24" 
        width="18" height="18" fill="currentColor">
@@ -77,7 +77,7 @@ profile: `
 `,
 
 
-logout: `
+  logout: `
   <svg xmlns="http://www.w3.org/2000/svg" 
        viewBox="0 0 24 24" 
        width="18" height="18" fill="none" 
@@ -88,6 +88,15 @@ logout: `
     <line x1="21" y1="12" x2="9" y2="12"/>
   </svg>
 `,
-
+about: `
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       viewBox="0 0 24 24" 
+       width="18" height="18" fill="none" stroke="currentColor" 
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="16" x2="12" y2="12"/>
+    <line x1="12" y1="8" x2="12.01" y2="8"/>
+  </svg>
+`,
 
 };

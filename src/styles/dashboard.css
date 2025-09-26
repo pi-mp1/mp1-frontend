@@ -6,15 +6,18 @@
 }
 
 h2.To.do {
-  color: #3b82f6; /* Azul */
+  color: #3b82f6;
+  /* Azul */
 }
 
 h2.in-progress {
-  color: #f59e0b; /* Amarillo */
+  color: #f59e0b;
+  /* Amarillo */
 }
 
 h2.completed {
-  color: #10b981; /* Verde */
+  color: #10b981;
+  /* Verde */
 }
 
 .column {
@@ -27,10 +30,10 @@ h2.completed {
 }
 
 
-.tasks{
+.tasks {
   flex-direction: column;
   display: flex;
-  gap: 1rem; 
+  gap: 1rem;
 }
 
 .column h2 {
@@ -44,7 +47,7 @@ h2.completed {
   background: white;
   border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
@@ -157,14 +160,16 @@ h2.completed {
 
 /* Modal */
 .modal {
-  display: none; /* Oculto por defecto */
+  display: none;
+  /* Oculto por defecto */
   position: fixed;
   z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background: rebeccapurple; /* Fondo semitransparente */
+  background: rebeccapurple;
+  /* Fondo semitransparente */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -181,7 +186,7 @@ h2.completed {
   text-align: center;
   max-width: 400px;
   width: 90%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .close {
@@ -214,7 +219,8 @@ h2.completed {
 
 @media (max-width: 768px) {
   .board {
-    grid-template-columns: 1fr; /* una columna en móviles */
+    grid-template-columns: 1fr;
+    /* una columna en móviles */
   }
 }
 
@@ -250,39 +256,39 @@ h2.completed {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    outline: none;
-    border-color: #2563eb;
+  outline: none;
+  border-color: #2563eb;
 }
 
 .char-count {
-    font-size: 0.875rem;
-    color: #6b7280;
-    text-align: right;
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-align: right;
 }
 
 .form-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
 }
 
 .btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-primary {
-    background: #2563eb;
-    color: white;
+  background: #2563eb;
+  color: white;
 }
 
 .btn-primary:hover {
-    background: #1d4ed8;
+  background: #1d4ed8;
 }
 
 .form-actions .btn-secondary {
@@ -292,14 +298,87 @@ h2.completed {
 }
 
 .btn-secondary:hover {
-    background: #4b5563;
+  color: white;
+  background: #4b5563;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #2563eb; /* azul */
+  background: #2563eb;
+  /* azul */
   padding: 10px;
   color: white;
+}
+
+.task-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.5);
+  z-index: 100;
+}
+
+.task-modal.hidden {
+  display: none;
+}
+
+/* Contenedor del modal */
+.task-modal-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Títulos y textos */
+.task-modal-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.task-modal-text {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* Acciones */
+.task-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.2rem;
+}
+
+/* Botones */
+.task-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  transition: background 0.2s ease-in-out;
+}
+
+.task-btn-cancel {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.task-btn-cancel:hover {
+  background: #c7c7c7;
+}
+
+.task-btn-danger {
+  background: #e53935;
+  color: white;
+}
+
+.task-btn-danger:hover {
+  background: #c62828;
 }
