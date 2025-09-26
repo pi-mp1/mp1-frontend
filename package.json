@@ -12,9 +12,7 @@
     "docs": "jsdoc -c jsdoc.json"
   },
   "devDependencies": {
+    "jsdoc": "^4.0.4",
     "vite": "^7.1.2"
-  },
-  "dependencies": {
-    "jsdoc": "^4.0.4"
   }
 }
