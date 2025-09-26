@@ -1,7 +1,6 @@
 #kpis {
     text-align: center;
     padding: 10px;
-    color: white;
 }
 
 .kpis-container {
@@ -25,7 +24,7 @@
 .kpi h2 {
     font-size: 2rem;
     margin: 0 0 0.5rem 0;
-    color: #2563eb;
+    color: var(--blue);
 }
 
 .kpi p {

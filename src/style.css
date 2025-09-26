@@ -6,6 +6,10 @@
   --breakpoint-sm: 320px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
+  --blue: #2563eb;
+  --blue-hover: #1d4ed8;
+  --red: #ef4444;
+  --red-hover: #dc2626;
 }
 
 body {

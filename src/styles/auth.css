@@ -91,7 +91,8 @@ div.logo img {
 }
 
 .btn {
-  padding: 12px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
   background: #000;
   color: #fff;
   font-size: 15px;
@@ -99,12 +100,19 @@ div.logo img {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn.full {
   width: 100%;
+}
+
+.mt-16 {
+  margin-top: 16px;
 }
 
 .btn:hover {
@@ -127,7 +135,7 @@ div.logo img {
 }
 
 .link-text a {
-  color: #1d4ed8;
+  color: var(--blue);
   text-decoration: none;
   text-underline-offset: 2px;
   font-weight: bold;
@@ -272,22 +280,23 @@ a:focus {
 /* Responsividad */
 @media (max-width: 1024px) {
   section.auth-container {
-    grid-template-columns: 1fr;
     width: 100vw;
     min-height: 100dvh;
     margin: 0;
     border-radius: 0;
-    overflow-y: auto;
   }
 
   section.auth-card {
-    padding: 30px 20px;
-    order: 2;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 15dvh 20px;
+    order: 1;
   }
 
   .image-box {
-    order: 1;
-    height: 40dvh;
+    order: 2;
+    height: 100dvh;
   }
 
   .image-box img {
@@ -300,6 +309,7 @@ a:focus {
 
 @media (max-width: 768px) {
   section.auth-container {
+    grid-template-columns: 1fr;
     width: 100%;
     min-height: 100vh;
   }

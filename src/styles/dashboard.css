@@ -5,6 +5,20 @@
   padding: 1rem;
 }
 
+main.main-content {
+  background-color: white;
+}
+
+.logo-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 26px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+
 h2.To.do {
   color: #3b82f6;
   /* Azul */
@@ -273,15 +287,6 @@ h2.completed {
   margin-top: 1rem;
 }
 
-.btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
 .btn-primary {
   background: #2563eb;
   color: white;
@@ -362,6 +367,8 @@ h2.completed {
   cursor: pointer;
   font-weight: bold;
   border: none;
+  display: flex;
+  align-items: center;
   transition: background 0.2s ease-in-out;
 }
 
@@ -375,10 +382,10 @@ h2.completed {
 }
 
 .task-btn-danger {
-  background: #e53935;
+  background: var(--red);
   color: white;
 }
 
 .task-btn-danger:hover {
-  background: #c62828;
+  background: var(--red-hover);
 }

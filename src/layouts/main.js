@@ -29,9 +29,9 @@ export function renderLayout(innerHtml) {
     <div class="layout">
       <header class="header">
         <div class="logo-container">
-          <img src="logo_icon.png" alt="Taskio ilustración" class="logo">
+          <img src="icon.png" alt="Taskio ilustración" class="logo">
 
-          <h1>TASKIO</h1>
+          <h1 class="logo-text">Taskio</h1>
         </div>
 
         <!-- Botón Hamburguesa -->
@@ -41,21 +41,21 @@ export function renderLayout(innerHtml) {
 
         <!-- Menú -->
         <nav id="nav-menu" class="nav-menu">
-          <a href="#/home">${Icons.home}Inicio</a>
-          <a href="#/taskList">${Icons.tasks}Tareas</a>
-          <a href="#/profile">${Icons.profile}Perfil</a>
-          <a href="#/about">${Icons.about} Sobre Nosotros</a>
-          <a href="javascript:void(0)" 
-            id="logout-btn" 
-            class="logout-icon" 
-            title="Cerrar sesión" 
+          <a href="#/home" class="nav-link">${Icons.home}Inicio</a>
+          <a href="#/taskList" class="nav-link">${Icons.tasks}Tareas</a>
+          <a href="#/profile" class="nav-link">${Icons.profile}Perfil</a>
+          <a href="#/about" class="nav-link">${Icons.about} Sobre Nosotros</a>
+          <a href="javascript:void(0)"
+            id="logout-btn"
+            class="logout-icon nav-link"
+            title="Cerrar sesión"
             onclick="logout()">
             ${Icons.logout} Cerrar Sesión
           </a>
         </nav>
       </header>
 
-      <main id="content">
+      <main id="content" class="main-content">
         ${innerHtml} <!-- Aquí entra el HTML de la vista -->
       </main>
 
@@ -63,6 +63,7 @@ export function renderLayout(innerHtml) {
 
       <footer>
         © 2025 - Todos los derechos reservados
+        <a href="#/sitemap">Mapa del sitio</a>
       </footer>
     </div>
   `;

@@ -67,7 +67,7 @@
 }
 
 .btn-register {
-  background: #2563eb;
+  background: var(--blue);
   color: white;
 }
 

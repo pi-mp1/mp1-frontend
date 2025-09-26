@@ -2,24 +2,26 @@
   <div class="profile-card">
     <div class="profile-header">
       <img src="/profile.png" alt="Foto de perfil" class="profile-avatar" />
-      <h2 class="profile-name" id="name"></h2>
-      <p class="profile-email" id="email"></p>
     </div>
-
+    
     <div class="profile-body">
-      <div class="profile-info">
+      <div id="profile-loader" class="spinner lg"></div>
+      <div id="profile-info" class="profile-info hidden">
+        <h2 class="profile-name" id="profile-name"></h2>
+        <p class="profile-email" id="profile-email"></p>
         <h3>Información personal</h3>
-        <p><strong>Edad:</strong> <span id="age"></span></p>
-        <p><strong>Fecha de creacion:</strong><span id="create"></span></p>
+        <p><strong>Edad:</strong> <span id="profile-age"></span></p>
+        <p><strong>Fecha de creacion:</strong> <span id="profile-create"></span></p>
       </div>
 
       <div class="profile-actions">
         <button class="btn btn-edit">Editar perfil</button>
-        <button class="btn btn-logout">Cerrar sesión</button>
+        <button class="btn btn-logout">Eliminar perfil</button>
       </div>
     </div>
   </div>
 </section>
+
 <!-- Modal Editar Perfil -->
 <div id="profileEditModal" class="profile-modal hidden">
   <div class="profile-modal-content">
@@ -33,13 +35,13 @@
       <label for="lastName">Apellido:</label>
       <input type="text" id="lastName" name="lastName" required />
 
-      <label for="email">email:</label>
+      <label for="email">Email:</label>
       <input type="text" id="emailEdit" name="email" required />
 
       <label for="age">Edad:</label>
       <input type="number" id="ageInput" name="age" min="0" required />
 
-      <button type="submit" class="btn btn-save">Guardar cambios</button>
+      <button id="update-profile-btn" type="submit" class="btn btn-save">Guardar cambios</button>
     </form>
   </div>
 </div>

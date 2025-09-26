@@ -17,6 +17,10 @@ header {
   align-items: center;
 }
 
+header.header {
+  padding-inline: 2rem;
+}
+
 header h1 {
   margin: 0;
   font-size: 1.5rem;
@@ -120,7 +124,14 @@ body {
 }
 
 .nav-menu :hover{
-  color:#f59e0b;
+  text-shadow: #0b5aa3;
+}
+
+.nav-link {
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Para pantallas pequeñas */
@@ -162,7 +173,7 @@ body {
 
 .logo-container {
   display: flex;
-  align-items: center;
+  align-items: end;
   gap: 0.5rem;
 }
 
