@@ -1,6 +1,49 @@
 import { deleteUser, getProfile, updateProfile } from "../api/users";
 import { showToast } from "../utils/toasts";
 
+/**
+ * @typedef {Object} UserProfile
+ * @property {string} firstName - User's first name.
+ * @property {string} lastName - User's last name.
+ * @property {number} age - User's age.
+ * @property {string} email - User's email address.
+ * @property {string|Date} createdAt - ISO string or Date representing the account creation date.
+ */
+
+/**
+ * Renders the profile section, sets up modal edit functionality,
+ * and handles profile deletion events.
+ *
+ * @async
+ * @function renderProfile
+ * @returns {Promise<void>} Resolves when the profile view has been rendered and listeners attached.
+ *
+ * @throws {Error} Logs an error if the profile cannot be fetched from the API.
+ *
+ * @example
+ * // Typical usage on page load
+ * document.addEventListener("DOMContentLoaded", () => {
+ *   renderProfile();
+ * });
+ *
+ * @description
+ * The function performs the following:
+ * 1. Fetches the current user profile via getProfile() and updates the DOM with:
+ *    - Full name
+ *    - Email
+ *    - Age
+ *    - Creation date (localized to es-CO)
+ * 2. Handles *Edit Profile modal*:
+ *    - Opens modal and pre-fills current profile data.
+ *    - Submits updated profile via updateProfile().
+ *    - Displays a success toast and re-renders profile info.
+ * 3. Handles *Delete Profile modal*:
+ *    - Opens modal when the delete button is clicked.
+ *    - Validates password input before calling deleteUser().
+ *    - Shows appropriate toasts for success/error.
+ *    - On success, redirects user to login after short delay.
+ */
+
 export async function renderProfile() {
   try {
     const profile = await getProfile();
@@ -8,7 +51,7 @@ export async function renderProfile() {
     if (profile) {
       document.getElementById("profile-loader").classList.add("hidden");
       document.getElementById("profile-info").classList.remove("hidden");
-      // Nombre completo
+      // Full name
       document.getElementById(
         "profile-name"
       ).textContent = `${profile.firstName} ${profile.lastName}`;
@@ -16,10 +59,10 @@ export async function renderProfile() {
       // Email
       document.getElementById("profile-email").textContent = profile.email;
 
-      // Edad
+      // Age
       document.getElementById("profile-age").textContent = profile.age;
 
-      // Fecha de creación (formateada)
+      // Creation date (formatted)
       const fecha = new Date(profile.createdAt);
       document.getElementById("profile-create").textContent = fecha.toLocaleDateString(
         "es-CO",
@@ -40,7 +83,7 @@ export async function renderProfile() {
   const editForm = document.getElementById("editProfileForm");
   const updateBtn = document.getElementById("update-profile-btn");
 
-  // Abrir modal con datos actuales
+  // Open modal with current data
   editBtn.addEventListener("click", async () => {
     const profile = await getProfile();
 
@@ -52,12 +95,12 @@ export async function renderProfile() {
     modal.classList.remove("hidden");
   });
 
-  // Cerrar modal
+  // Close modal
   closeBtn.addEventListener("click", () => {
     modal.classList.add("hidden");
   });
 
-  // Guardar cambios
+  // Save changes
   editForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -89,18 +132,18 @@ export async function renderProfile() {
   const btnConfirm = document.getElementById("confirm-delete");
   const inputPassword = document.getElementById("delete-password");
 
-  // Abrir modal
+  // Open modal
   btnDeleteProfile.addEventListener("click", () => {
     modalProfile.style.display = "flex";
   });
 
-  // Cerrar modal
+  // Close modal
   btnCancel.addEventListener("click", () => {
     modalProfile.style.display = "none";
     inputPassword.value = "";
   });
 
-  // Confirmar eliminación
+  // Confirm deletion
   btnConfirm.addEventListener("click", async ()=> {
     const password = inputPassword.value.trim();
     if (!password) {
