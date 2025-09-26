@@ -210,3 +210,81 @@
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* Fondo del modal */
+.modal-profile {
+  display: none; /* oculto por defecto */
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Caja del modal */
+.modal-profile-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 320px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Acciones */
+.modal-profile-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-profile input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Botones */
+.btn-delete-profile {
+  background: #e53935;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.btn-delete-profile:hover {
+  background: #c62828;
+}
+
+.btn-cancel {
+  background: #ccc;
+  color: #333;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-cancel:hover {
+  background: #b0b0b0;
+}
+
+.btn-confirm {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-confirm:hover {
+  background: #c62828;
+}
